@@ -1,0 +1,83 @@
+[
+  
+  {
+    "id": 0,
+    "category": "Sentences",
+    "english_language": "I am flying to Gadigal Country",
+    "dharug_language": "Ngaya wumara-wa Gadigal nura",
+    "english_audio_path": "",
+    "dharug_audio_path": "audio/Sentences/1. Ngaya wumara-wa Gadigal nura.wav"
+  },
+  {
+    "id": 1,
+    "category": "Sentences",
+    "english_language": "I am a magpie",
+    "dharug_language": "ngaya Wilbung",
+    "english_audio_path": "",
+    "dharug_audio_path": "audio/Sentences/2. ngaya Wilbung.wav"
+  },
+  {
+    "id": 2,
+    "category": "Sentences",
+    "english_language": "I am a song bird",
+    "dharug_language": "ngaya-ma yibbun-ga yidbung murradjulbi",
+    "english_audio_path": "",
+    "dharug_audio_path": "audio/Sentences/3. ngaya-ma yibbun-ga yidbung murradjulbi.wav"
+  },
+  {
+    "id": 3,
+    "category": "Sentences",
+    "english_language": "I am a totem of the Dharug",
+    "dharug_language": "ngaya nangyilaburgay-ga Buruberongal",
+    "english_audio_path": "",
+    "dharug_audio_path": "audio/Sentences/4. ngaya nangyilaburgay-ga Buruberongal.wav"
+  },
+  {
+    "id": 4,
+    "category": "Sentences",
+    "english_language": "I am flying over country",
+    "dharug_language": "ngaya wumara nura-ma",
+    "english_audio_path": "",
+    "dharug_audio_path": "audio/Sentences/5. ngaya wumara nura-ma.wav"
+  },
+  {
+    "id": 5,
+    "category": "Sentences",
+    "english_language": "Gadigal country is our country",
+    "dharug_language": "Daragule, Gadigal, Dharwawal dah ngyinu nura",
+    "english_audio_path": "",
+    "dharug_audio_path": "audio/Sentences/6. Daragule, Gadigal, Dharwawal dah ngyinu nura.wav"
+  },
+  {
+    "id": 6,
+    "category": "Sentences",
+    "english_language": "I am the whale (Wolloomooloo)",
+    "dharug_language": "ngaya gawara Wulamulu",
+    "english_audio_path": "",
+    "dharug_audio_path": "audio/Sentences/7. ngaya gawara Wulamulu.wav"
+  },
+  {
+    "id":7,
+    "category": "Sentences",
+    "english_language": "This is the place where we corroboree for this area",
+    "dharug_language": "Diya dah wingaru nura nunang la nung ngyina garriberri",
+    "english_audio_path": "",
+    "dharug_audio_path": "audio/Sentences/10. Diya dah wingaru nura nunang la nung ngyina garriberri.wav"
+  },
+  {
+    "id": 8,
+    "category": "Sentences",
+    "english_language": "There are no trees on the corroboree ground",
+    "dharug_language": "Biyall yinyan garriberri-wa nura",
+    "english_audio_path": "",
+    "dharug_audio_path": "audio/Sentences/11. Biyall yinyan garriberri-wa nura.wav"
+  },
+  {
+    "id": 9,
+    "category": "Sentences",
+    "english_language": "I the moiety totem of the people",
+    "dharug_language": "ngyina nangyilaburgay-ga Iyura-wa",
+    "english_audio_path": "",
+    "dharug_audio_path": "audio/Sentences/15. ngyina nangyilaburgay-ga Iyura-wa.wav"
+  }
+]

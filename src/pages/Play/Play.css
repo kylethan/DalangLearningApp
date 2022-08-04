@@ -1,0 +1,48 @@
+
+.orange-btn {
+    --background: gold;
+    --border-radius: 50% !important;
+    width: 50px; height: 50px;
+    margin-left: 1rem;
+}
+.orange-btn ion-icon {
+    fill: white;
+    font-size: 20px;
+}
+.orange-btn button {
+    --box-shadow: none;
+}
+
+div.item {
+    padding: .5rem 1rem !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div.item:first-child {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+div.item:first-child button {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+div.item:first-child ion-icon {
+    fill: white;
+}
+
+div.item p {
+    flex: 1;
+    max-width: 90%;
+}
+
+.btns {
+    display: flex;
+    justify-content: center;
+}

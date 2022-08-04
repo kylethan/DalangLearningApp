@@ -1,0 +1,7 @@
+{
+  "name": "DalangLearning",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}

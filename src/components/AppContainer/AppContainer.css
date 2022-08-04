@@ -1,0 +1,40 @@
+ion-searchbar, ion-searchbar input {
+    --background: white;
+    color: black !important;
+}
+
+ion-icon {
+    font-size: 1.5rem;
+}
+
+ion-toolbar {
+    padding: .5rem !important;
+}
+
+.header {
+    padding: 0
+}
+.header ion-row:first-child{
+    background-color: #000;
+}
+.header ion-row.breadcrumb{
+    background-color: DarkSlateGrey;
+}
+.header ion-row.breadcrumb ion-item{
+    --background: transparent;
+}
+
+.header ion-col {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    padding: .7rem .5rem;
+}
+
+.header ion-col.active {
+    background: DarkSlateGrey;
+}
+
+.body-padding {
+    padding: 1rem;
+}

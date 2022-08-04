@@ -1,0 +1,698 @@
+[
+  {
+    "id": 1,
+    "category": "Badalya",
+    "english": "lets make a fire",
+    "dharug": "bangala gwianga-da",
+    "literal": "fire",
+    "partofspeech": ""
+  },
+  {
+    "id": 2,
+    "category": "Manyaniya",
+    "english": "make haste it is raining",
+    "dharug": "barrawu dah bunna bunna",
+    "literal": "hurry, make haste",
+    "partofspeech": ""
+  },
+  {
+    "id": 3,
+    "category": "Barrang",
+    "english": "cheeks",
+    "dharug": "birabira",
+    "literal": "cheek",
+    "partofspeech": ""
+  },
+  {
+    "id": 4,
+    "category": "Mudjin",
+    "english": "all the beautiful women watch him",
+    "dharug": "biyanga garragalleion-aliyung jillung naa nanu.",
+    "literal": "women",
+    "partofspeech": ""
+  },
+  {
+    "id": 5,
+    "category": "Mudjin",
+    "english": "father's house",
+    "dharug": "biyangara gunyah",
+    "literal": "father",
+    "partofspeech": ""
+  },
+  {
+    "id": 6,
+    "category": "Warami",
+    "english": "where the eels lay",
+    "dharug": "burramattagal",
+    "literal": "parrametta",
+    "partofspeech": ""
+  },
+  {
+    "id": 7,
+    "category": "Mammal",
+    "english": "buru it is name for kangaroo",
+    "dharug": "buru dah giyara-dane kangaroo",
+    "literal": "kangaroo, old male",
+    "partofspeech": ""
+  },
+  {
+    "id": 8,
+    "category": "Nura",
+    "english": "north wind",
+    "dharug": "buruwan",
+    "literal": "north",
+    "partofspeech": ""
+  },
+  {
+    "id": 9,
+    "category": "Warami",
+    "english": "good children",
+    "dharug": "dadyibalung gulyangarri",
+    "literal": "good",
+    "partofspeech": ""
+  },
+  {
+    "id": 10,
+    "category": "Warami",
+    "english": "Thank you black man and women for the stones",
+    "dharug": "didjurigura Balagaman yuu Boorooralyung dane nin yibbun gibba",
+    "literal": "thank you",
+    "partofspeech": ""
+  },
+  {
+    "id": 11,
+    "category": "Warami",
+    "english": "hide kids here i (am doing)",
+    "dharug": "duwabili gulyangarri djamu",
+    "literal": "hide",
+    "partofspeech": ""
+  },
+  {
+    "id": 12,
+    "category": "Manyaniya",
+    "english": "play children",
+    "dharug": "dyanmila gurungarri",
+    "literal": "play",
+    "partofspeech": ""
+  },
+  {
+    "id": 13,
+    "category": "Bird",
+    "english": "black cockatoo flying up north",
+    "dharug": "garmit wumara buruwan",
+    "literal": "cockatoo, black",
+    "partofspeech": ""
+  },
+  {
+    "id": 14,
+    "category": "Manyaniya",
+    "english": "laugh my head off",
+    "dharug": "garranarbillie gabara-wa",
+    "literal": "laughter",
+    "partofspeech": ""
+  },
+  {
+    "id": 15,
+    "category": "Bird",
+    "english": "many pelicans",
+    "dharug": "garranga bumarri",
+    "literal": "pelican",
+    "partofspeech": ""
+  },
+  {
+    "id": 16,
+    "category": "Nura",
+    "english": "come this side of the the water!",
+    "dharug": "gawi wurrungwuri",
+    "literal": "this side of the river",
+    "partofspeech": ""
+  },
+  {
+    "id": 17,
+    "category": "Nura",
+    "english": "sunrise",
+    "dharug": "guwing bayabuba",
+    "literal": "sun",
+    "partofspeech": ""
+  },
+  {
+    "id": 18,
+    "category": "Manyaniya",
+    "english": "come here lets eat",
+    "dharug": "guwuwi badalya",
+    "literal": "eat",
+    "partofspeech": ""
+  },
+  {
+    "id": 19,
+    "category": "Warami",
+    "english": "I don't know many names",
+    "dharug": "manyaru marri giyara",
+    "literal": "name",
+    "partofspeech": ""
+  },
+  {
+    "id": 20,
+    "category": "Mudjin",
+    "english": "I don't know many names",
+    "dharug": "manyaru marri giyara",
+    "literal": "many, a great deal, large etc",
+    "partofspeech": ""
+  },
+  {
+    "id": 21,
+    "category": "Bird",
+    "english": "emu egg",
+    "dharug": "mariyung gaban",
+    "literal": "egg",
+    "partofspeech": ""
+  },
+  {
+    "id": 22,
+    "category": "Manyaniya",
+    "english": "many listening with relatives, sleep, eat, drink and thinking",
+    "dharug": "marri ngarra minyinga mudjin, nanga, bada, wida yuu wingaru-ra",
+    "literal": "listen",
+    "partofspeech": ""
+  },
+  {
+    "id": 23,
+    "category": "Nura",
+    "english": "this is a strong wind",
+    "dharug": "Mmdang guwarra,  diya-dah",
+    "literal": "wind",
+    "partofspeech": ""
+  },
+  {
+    "id": 24,
+    "category": "Mudjin",
+    "english": "all men on country",
+    "dharug": "mullabu yura",
+    "literal": "man",
+    "partofspeech": ""
+  },
+  {
+    "id": 25,
+    "category": "Water Mammals",
+    "english": "look see on the ocean, its a whale",
+    "dharug": "naala ni garrigarrang gawura",
+    "literal": "whale",
+    "partofspeech": ""
+  },
+  {
+    "id": 26,
+    "category": "Nura",
+    "english": "look see and listen, story teller singing",
+    "dharug": "naala ni yuu ngarra, yellamundie yibban-da",
+    "literal": "story teller",
+    "partofspeech": ""
+  },
+  {
+    "id": 27,
+    "category": "Mammal",
+    "english": "look see the dog",
+    "dharug": "naala warragal dingu",
+    "literal": "dingo dog",
+    "partofspeech": ""
+  },
+  {
+    "id": 28,
+    "category": "Bird",
+    "english": "look at the bird flying west",
+    "dharug": "naalabiyu wawa yidbung wumara bayinmarri",
+    "literal": "bird",
+    "partofspeech": ""
+  },
+  {
+    "id": 29,
+    "category": "Mammal",
+    "english": "Look at the kangaroo!",
+    "dharug": "naalabiyuni badagarang",
+    "literal": "kangaroo, eastern gray",
+    "partofspeech": ""
+  },
+  {
+    "id": 30,
+    "category": "Bird",
+    "english": "look see the female emu",
+    "dharug": "naalabiyuni mariyung",
+    "literal": "emu, female",
+    "partofspeech": ""
+  },
+  {
+    "id": 31,
+    "category": "Bird",
+    "english": "look see the male emu",
+    "dharug": "naalabiyuni maugrai",
+    "literal": "emu, male",
+    "partofspeech": ""
+  },
+  {
+    "id": 32,
+    "category": "Reptile",
+    "english": "look at the goanna",
+    "dharug": "naalabiyuni wirriga",
+    "literal": "goanna, male",
+    "partofspeech": ""
+  },
+  {
+    "id": 33,
+    "category": "Bird",
+    "english": "look at the duck",
+    "dharug": "naalabiyuni yurangai",
+    "literal": "duck",
+    "partofspeech": ""
+  },
+  {
+    "id": 34,
+    "category": "Manyaniya",
+    "english": "show me",
+    "dharug": "naminma dye",
+    "literal": "show",
+    "partofspeech": ""
+  },
+  {
+    "id": 35,
+    "category": "Manyaniya",
+    "english": "sleepy",
+    "dharug": "nangara",
+    "literal": "sleep",
+    "partofspeech": ""
+  },
+  {
+    "id": 36,
+    "category": "Manyaniya",
+    "english": "look and seek",
+    "dharug": "ngalga waranara",
+    "literal": "seek",
+    "partofspeech": ""
+  },
+  {
+    "id": 37,
+    "category": "Reptile",
+    "english": "NULL",
+    "dharug": "NULL",
+    "literal": "turtle",
+    "partofspeech": "noun"
+  },
+  {
+    "id": 38,
+    "category": "Warami",
+    "english": "I will return",
+    "dharug": "nyala walama",
+    "literal": "return",
+    "partofspeech": ""
+  },
+  {
+    "id": 39,
+    "category": "Warami",
+    "english": "Its good to see you, come sit together make a fire",
+    "dharug": "Warami budyari yura, gawi ngalawayu ngaya-wa bangada gwianga",
+    "literal": "hullo",
+    "partofspeech": ""
+  },
+  {
+    "id": 40,
+    "category": "Warami",
+    "english": "good to see you, wherever you have all come are from",
+    "dharug": "Warami wellamabamiyui",
+    "literal": "good to see you",
+    "partofspeech": ""
+  },
+  {
+    "id": 41,
+    "category": "Manyaniya",
+    "english": "look up",
+    "dharug": "warrawi buwara",
+    "literal": "stand",
+    "partofspeech": ""
+  },
+  {
+    "id": 42,
+    "category": "Reptile",
+    "english": "",
+    "dharug": "wiri bulada",
+    "literal": "snake",
+    "partofspeech": ""
+  },
+  {
+    "id": 43,
+    "category": "Mudjin",
+    "english": "tired boy",
+    "dharug": "wunul wungurra",
+    "literal": "tired",
+    "partofspeech": ""
+  },
+  {
+    "id": 44,
+    "category": "Nura",
+    "english": "the fire is going out",
+    "dharug": "wuruna gwianga",
+    "literal": "it's going out",
+    "partofspeech": ""
+  },
+  {
+    "id": 45,
+    "category": "Warami",
+    "english": "today is monday",
+    "dharug": "yaguna dah yanadaga",
+    "literal": "monday",
+    "partofspeech": ""
+  },
+  {
+    "id": 46,
+    "category": "Manyaniya",
+    "english": "walking on earth",
+    "dharug": "yenmara bembul-ra",
+    "literal": "walk",
+    "partofspeech": ""
+  },
+  {
+    "id": 47,
+    "category": "Nura",
+    "english": "walking on earth",
+    "dharug": "yenmara bembul-ra",
+    "literal": "earth",
+    "partofspeech": ""
+  },
+  {
+    "id": 48,
+    "category": "Bird",
+    "english": "many parrakeets",
+    "dharug": "yirran djirrang",
+    "literal": "parrakeet",
+    "partofspeech": ""
+  },
+  {
+    "id": 49,
+    "category": "Badalya",
+    "english": "Yes son you are a hunter man and strong they watch you now.",
+    "dharug": "yuin durunung wulbungada mulla yuu mudang naalibyila jillung ngyini yaguna",
+    "literal": "son",
+    "partofspeech": ""
+  },
+  {
+    "id": 50,
+    "category": "",
+    "english": "walk,let's walk together",
+    "dharug": "yenma yenmalalibyila,",
+    "literal": "",
+    "partofspeech": ""
+  },
+  {
+    "id": 51,
+    "category": "",
+    "english": "welcome wherever you are form",
+    "dharug": "Warami Wellamabami",
+    "literal": "greeting",
+    "partofspeech": ""
+  },
+  {
+    "id": 52,
+    "category": "",
+    "english": "I am called the song woman",
+    "dharug": "Ngaya nin yeallamundie-bu",
+    "literal": "greeting",
+    "partofspeech": ""
+  },
+  {
+    "id": 53,
+    "category": "",
+    "english": "we as allies, comrades and friends are thinking of the elders on Aboriginal land",
+    "dharug": "Ngyina ngalaya gamarada mittiga wingaru-waru ganyanayung",
+    "literal": "greeting",
+    "partofspeech": ""
+  },
+  {
+    "id": 54,
+    "category": "",
+    "english": "I am flying to Gadigal Country",
+    "dharug": "Ngaya wumara-wa Gadigal nura",
+    "literal": "country",
+    "partofspeech": ""
+  },
+  {
+    "id": 55,
+    "category": "",
+    "english": "I am a magpie",
+    "dharug": "ngaya Wilbung",
+    "literal": "",
+    "partofspeech": ""
+  },
+  {
+    "id": 56,
+    "category": "",
+    "english": "I am a song bird",
+    "dharug": "ngaya-ma yibbun-ga yidbung murradjulbi",
+    "literal": "",
+    "partofspeech": ""
+  },
+  {
+    "id": 57,
+    "category": "",
+    "english": "I am a totem of the Dharug",
+    "dharug": "ngaya nangyilaburgay-ga Buruberongal",
+    "literal": "",
+    "partofspeech": ""
+  },
+  {
+    "id": 58,
+    "category": "",
+    "english": "I am flying over country",
+    "dharug": "ngaya wumara nura-ma",
+    "literal": "",
+    "partofspeech": ""
+  },
+  {
+    "id": 59,
+    "category": "",
+    "english": "Gadigal country is our country",
+    "dharug": "Daragule, Gadigal, Dharwawal dah ngyinu nura",
+    "literal": "",
+    "partofspeech": ""
+  },
+  {
+    "id": 60,
+    "category": "",
+    "english": "I am seeing clouds",
+    "dharug": "Ngaya naa-ni burrah",
+    "literal": "",
+    "partofspeech": ""
+  },
+  {
+    "id": 61,
+    "category": "",
+    "english": "The clouds are black",
+    "dharug": "Nin burrah-wa nand",
+    "literal": "",
+    "partofspeech": ""
+  },
+  {
+    "id": 62,
+    "category": "",
+    "english": "The clouds are full with rain",
+    "dharug": "Nin burrah-wa-ga wallin wullum-ma",
+    "literal": "",
+    "partofspeech": ""
+  },
+  {
+    "id": 63,
+    "category": "",
+    "english": "I am seeing rain",
+    "dharug": "Ngaya ni-da wallin",
+    "literal": "",
+    "partofspeech": ""
+  },
+  {
+    "id": 64,
+    "category": "",
+    "english": "The clouds are flying away and further away",
+    "dharug": "Nin burrah-ma wumara-da warra warra",
+    "literal": "",
+    "partofspeech": ""
+  },
+  {
+    "id": 65,
+    "category": "",
+    "english": "I am looking for the camp",
+    "dharug": "Ngaya naa dane nin ngurra",
+    "literal": "",
+    "partofspeech": ""
+  },
+  {
+    "id": 66,
+    "category": "",
+    "english": "I am the whale (Wolloomooloo)",
+    "dharug": "ngaya gawara Wulamulu",
+    "literal": "",
+    "partofspeech": ""
+  },
+  {
+    "id": 67,
+    "category": "",
+    "english": "I am the thinking place for country",
+    "dharug": "ngaya wingaru-da Nura-ma",
+    "literal": "",
+    "partofspeech": ""
+  },
+  {
+    "id": 68,
+    "category": "",
+    "english": "I am river country",
+    "dharug": "ngaya Durubin Nura-ma",
+    "literal": "",
+    "partofspeech": ""
+  },
+  {
+    "id": 69,
+    "category": "",
+    "english": "This is the place where we corroboree for this area",
+    "dharug": "Diya dah wingaru nura nunang la nung ngyina garriberri",
+    "literal": "",
+    "partofspeech": ""
+  },
+  {
+    "id": 70,
+    "category": "",
+    "english": "There are no trees on the corroboree ground",
+    "dharug": "Biyall yinyan garriberri-wa nura",
+    "literal": "",
+    "partofspeech": ""
+  },
+  {
+    "id": 71,
+    "category": "",
+    "english": "At the corroboree ground the people gather",
+    "dharug": "Wawa nin garriberri nura dah",
+    "literal": "",
+    "partofspeech": ""
+  },
+  {
+    "id": 72,
+    "category": "",
+    "english": "The corroboree ground is big",
+    "dharug": "Nin garriberri marri-da",
+    "literal": "",
+    "partofspeech": ""
+  },
+  {
+    "id": 73,
+    "category": "",
+    "english": "See the kangaroo",
+    "dharug": "naa-ni nin Badagarang /Badagarong (f)",
+    "literal": "",
+    "partofspeech": ""
+  },
+  {
+    "id": 74,
+    "category": "",
+    "english": "I am a kangaroo",
+    "dharug": "Ngaya Badagarang",
+    "literal": "",
+    "partofspeech": ""
+  },
+  {
+    "id": 75,
+    "category": "",
+    "english": "I the moiety totem of the people",
+    "dharug": "ngyina nangyilaburgay-ga Iyura-wa",
+    "literal": "",
+    "partofspeech": ""
+  },
+  {
+    "id": 76,
+    "category": "",
+    "english": "People come from far away to speak about country",
+    "dharug": "Iyura gawi wara Jillung, byalla-ra nura",
+    "literal": "",
+    "partofspeech": ""
+  },
+  {
+    "id": 77,
+    "category": "",
+    "english": "They speak about hunting on country",
+    "dharug": "Jillung byalla waru wulbung nura-wa",
+    "literal": "",
+    "partofspeech": ""
+  },
+  {
+    "id": 78,
+    "category": "",
+    "english": "People are coming",
+    "dharug": "Iyura-wa gawi-da",
+    "literal": "",
+    "partofspeech": ""
+  },
+  {
+    "id": 79,
+    "category": "",
+    "english": "Its good to see you wherever you are from",
+    "dharug": "warami wellamabami",
+    "literal": "",
+    "partofspeech": ""
+  },
+  {
+    "id": 80,
+    "category": "",
+    "english": "I am from Paramatta (sitting male) he points down the river past the people fishing",
+    "dharug": "ngaya Burramatta-ga",
+    "literal": "",
+    "partofspeech": ""
+  },
+  {
+    "id": 81,
+    "category": "",
+    "english": "Whats your name?",
+    "dharug": "ngan ngyinu giyara",
+    "literal": "",
+    "partofspeech": ""
+  },
+  {
+    "id": 82,
+    "category": "",
+    "english": "I am Nambrimbrii",
+    "dharug": "ngaya Nambrimbrii-ma",
+    "literal": "",
+    "partofspeech": ""
+  },
+  {
+    "id": 83,
+    "category": "",
+    "english": "We are your relatives",
+    "dharug": "ngyina-wa Mudjin-Marlin",
+    "literal": "",
+    "partofspeech": ""
+  },
+  {
+    "id": 84,
+    "category": "",
+    "english": "I am your uncle",
+    "dharug": "Ngaya ngyinu Guwan",
+    "literal": "",
+    "partofspeech": ""
+  },
+  {
+    "id": 85,
+    "category": "",
+    "english": "I am your aunty",
+    "dharug": "Ngaya ngyinu Wurrai",
+    "literal": "",
+    "partofspeech": ""
+  },
+  {
+    "id": 86,
+    "category": "",
+    "english": "Lets eat together",
+    "dharug": "Bada-la Bada lalibyila This line requires lip synch",
+    "literal": "",
+    "partofspeech": ""
+  },
+  {
+    "id": 87,
+    "category": "",
+    "english": "Lets walk together",
+    "dharug": "yenma-la yenma lalibylia",
+    "literal": "",
+    "partofspeech": ""
+  }
+]

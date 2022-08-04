@@ -1,0 +1,57 @@
+ion-menu ion-content ion-list{
+    background: white !important;
+    padding: 0 !important;
+    height: 100%;
+}
+ion-menu ion-content .head{
+    background: DarkSlateGrey !important;
+}
+ion-menu ion-content {
+  --background: white;
+  padding: 1rem;
+}
+
+ion-menu ion-list-header {
+    color: #fff;
+    text-transform: capitalize;
+    font-size: 1.5rem;
+    padding: 3rem 1rem .5rem;
+}
+ion-menu ion-note {
+    color: #fff;
+    text-transform: lowercase;
+    font-size: 1rem;
+    padding: 0 1rem 1rem;
+    display: block;
+}
+
+.menu ion-item.selected {
+    --background: #000;
+    color: #fff !important;
+}
+.menu ion-item {
+    --background: white;
+    color: white;
+}
+
+.menu ion-label {
+    --color: #000 !important
+}
+
+.menu ion-item.selected ion-label {
+    --color: #fff !important
+}
+.menu ion-item.selected ion-icon {
+    color: #fff !important
+}
+
+.menu ion-icon {
+    margin-inline-end: 12px;
+    color: #000;
+}
+
+.menu .btm {
+    bottom: 15px;
+    position: absolute;
+    left: 10px;
+}

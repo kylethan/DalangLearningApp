@@ -1,0 +1,23 @@
+body {  
+    --ion-background-color: white !important;
+}
+
+ion-toolbar {
+    --background: transparent
+}
+
+ion-header {
+    background: slategrey
+}
+
+ion-header.ios {
+    padding-top: 1.2rem !important;
+}
+
+.alert-title.sc-ion-alert-md, .alert-title.sc-ion-alert-ios, .alert-radio-label.sc-ion-alert-md, .alert-radio-label.sc-ion-alert-ios {
+    color: #000;
+}
+
+[aria-checked=true].sc-ion-alert-md .alert-radio-label.sc-ion-alert-md {
+    color: var(--ion-color-primary, #262626);
+}
