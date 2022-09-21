@@ -17,6 +17,7 @@ const Home: React.FC = () => {
         setShowLoading(true)
         try {
             const res = await getWords();
+            console.log({ res });
             setWords(res)
         }
         catch {
