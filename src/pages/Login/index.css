@@ -8,3 +8,7 @@
 .icon {
     margin-bottom: 2rem;
 }
+ion-title.title-large {
+    color: darkorchid;
+    font-size: 42px;
+  }

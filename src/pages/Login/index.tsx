@@ -6,7 +6,7 @@ import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import 'firebase/compat/auth';
 import {
     IonContent,
-    IonPage,
+    IonPage, IonTitle
 } from '@ionic/react';
 
 import { useAuth } from '../../hooks/useAuth';
@@ -53,7 +53,8 @@ const Login: React.FC = () => {
                         width="150"
                         height="150"
                     />
-
+                    <IonTitle color='light' size='large'>Dalang Learning App</IonTitle>
+                    <br/>
                     <StyledFirebaseAuth
                         uiConfig={uiConfig}
                         firebaseAuth={firebase.auth()}
