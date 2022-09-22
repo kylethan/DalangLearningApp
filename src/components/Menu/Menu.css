@@ -4,7 +4,7 @@ ion-menu ion-content ion-list{
     height: 100%;
 }
 ion-menu ion-content .head{
-    background: DarkSlateGrey !important;
+    background-image: linear-gradient(to bottom right,#0BB1D3, darkorchid) !important;
 }
 ion-menu ion-content {
   --background: white;

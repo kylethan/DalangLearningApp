@@ -1,6 +1,7 @@
 ion-searchbar, ion-searchbar input {
     --background: white;
     color: black !important;
+    background-image: linear-gradient(to bottom right,#0BB1D3, darkorchid);
 }
 
 ion-icon {
@@ -18,7 +19,7 @@ ion-toolbar {
     background-color: #000;
 }
 .header ion-row.breadcrumb{
-    background-color: DarkSlateGrey;
+    background-image: linear-gradient(to bottom right,#0BB1D3, darkorchid);
 }
 .header ion-row.breadcrumb ion-item{
     --background: transparent;
@@ -32,7 +33,7 @@ ion-toolbar {
 }
 
 .header ion-col.active {
-    background: DarkSlateGrey;
+    background-image: linear-gradient(to bottom right,#0BB1D3, darkorchid);
 }
 
 .body-padding {

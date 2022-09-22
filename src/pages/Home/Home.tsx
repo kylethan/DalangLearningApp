@@ -66,7 +66,7 @@ const Home: React.FC = () => {
             <IonRow>
                 {
                     [...new Set(wrds.map(word => word.category))].map((category, key) => (
-                        <IonCol size="4" className='custom' key={key}>
+                        <IonCol size="6" className='custom' key={key}>
                             <IonRouterLink routerLink={`/categories/${category}`}>
                                 {/* <IonIcon icon={earth} /> */}
                                 <IonText>
