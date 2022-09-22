@@ -46,6 +46,7 @@ function useProvideAuth() {
   const signOut = async () => {
     await firebase.auth().signOut();
     setUser(null);
+    window.location.reload();
   };
 
   // Subscribe to user on mount

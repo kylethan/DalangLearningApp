@@ -29,6 +29,7 @@ ion-col.custom ion-router-link {
     display: block;
     
 }
-.gradient-text {
-    
+
+.category-icon-container {
+    justify-content: center;
 }

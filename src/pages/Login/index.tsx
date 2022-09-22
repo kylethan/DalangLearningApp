@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router';
+import React from 'react';
 import firebase from 'firebase/compat/app';
 import { Props } from 'react-firebaseui';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
@@ -9,7 +8,6 @@ import {
     IonPage, IonTitle
 } from '@ionic/react';
 
-import { useAuth } from '../../hooks/useAuth';
 import './index.css';
 
 const logoIcon = 'https://cdn-icons-png.flaticon.com/512/6550/6550029.png?fbclid=IwAR1mWo38GKUkA6DBenA-fe_PoOoUR4nwI80YhIJSatpzaa-IchYQ6Q-5nv4';
@@ -31,17 +29,6 @@ const uiConfig: Props['uiConfig'] = {
 };
 
 const Login: React.FC = () => {
-    const { user } = useAuth();
-    const history = useHistory();
-    const location = useLocation();
-    const { from } = (location.state as any)?.state || { from: { pathname: '/' } }
-
-    useEffect(() => {
-        if (user) {
-            history.push(from.pathname)
-        }
-    }, [user])
-
     return (
         <IonPage>
             <IonContent fullscreen>

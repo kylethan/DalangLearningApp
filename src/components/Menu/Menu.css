@@ -55,3 +55,11 @@ ion-menu ion-note {
     position: absolute;
     left: 10px;
 }
+
+.user-info-container {
+    align-items: center;
+}
+
+.user-avatar {
+    margin-right: 0.5rem;
+}

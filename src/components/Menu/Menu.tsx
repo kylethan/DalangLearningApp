@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import {
+    IonAvatar,
+  IonButton,
+  IonCol,
   IonContent,
   IonIcon,
   IonItem,
@@ -9,12 +13,33 @@ import {
   IonMenu,
   IonMenuToggle,
   IonNote,
+  IonRow,
 } from '@ionic/react';
+import {
+    archiveOutline,
+    archiveSharp,
+    bookmarkOutline,
+    chatbubbleOutline,
+    chatbubblesOutline,
+    heartOutline,
+    heartSharp,
+    logOutOutline,
+    mailOutline,
+    mailSharp,
+    paperPlaneOutline,
+    paperPlaneSharp,
+    personOutline,
+    personSharp,
+    trashOutline,
+    trashSharp,
+    warningOutline,
+    warningSharp,
+} from 'ionicons/icons';
 
-import { useLocation } from 'react-router-dom';
-import { archiveOutline, archiveSharp, bookmarkOutline, chatbubbleOutline, chatbubblesOutline, heartOutline, heartSharp, logOutOutline, mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, personOutline, personSharp, trashOutline, trashSharp, warningOutline, warningSharp } from 'ionicons/icons';
+import { useAuth } from '../../hooks/useAuth';
 import './Menu.css';
-import { userInfo, setUserInfo } from '../../api/handler';
+
+const defaultIconUrl = 'https://cdn-icons-png.flaticon.com/128/149/149071.png';
 
 interface AppPage {
     url: string;
@@ -24,14 +49,9 @@ interface AppPage {
     show?: boolean;
 }
 
-
-
 const Menu: React.FC = () => {
     const location = useLocation();
-    const [ user, setUser ] = useState<any>({})
-    useEffect(() => {
-        setUser(userInfo)
-    }, [userInfo])
+    const { user, signOut } = useAuth()
 
     const appPages: AppPage[] = [
         {
@@ -71,17 +91,44 @@ const Menu: React.FC = () => {
             <IonContent>
                 <IonList>
                     <div className='head'>
-                        <IonListHeader>{user?.username || ''}</IonListHeader>
-                        <IonNote>{user?.email || ''}</IonNote>
+                        <IonListHeader>
+                            <IonRow className="user-info-container">
+                                <IonAvatar className="user-avatar">
+                                    <img
+                                        alt="user-avatar"
+                                        src={user?.photoURL || defaultIconUrl}
+                                    />
+                                </IonAvatar>
+
+                                <IonCol>
+                                    <IonLabel>
+                                        {user?.displayName || user?.email || user?.phoneNumber || ''}
+                                    </IonLabel>
+
+                                    <IonButton
+                                        shape="round"
+                                        color="tertiary"
+                                        size="small"
+                                        fill="solid"
+                                        onClick={signOut}
+                                    >
+                                        Sign out
+                                    </IonButton>
+                                </IonCol>
+                            </IonRow>
+                        </IonListHeader>
                     </div>
+
                     {appPages.filter(({ show = true }) => Boolean(show)).map(({ show = true, ...appPage }, index) => (
                         <IonMenuToggle key={index} autoHide={false}>
                             <IonItem className={location.pathname === appPage.url ? 'selected' : ''} routerLink={appPage.url} routerDirection="none" lines="none" detail={false}>
                                 <IonIcon slot="start" ios={appPage.iosIcon} md={appPage.mdIcon} />
+
                                 <IonLabel>{appPage.title}</IonLabel>
                             </IonItem>
                         </IonMenuToggle>
                     ))}
+
                     {/* <IonMenuToggle autoHide={false} className='btm'>
                         <IonItem onClick={() => { setUserInfo({}) }} routerLink={'/'} routerDirection="none" lines="none" detail={false}>
                             <IonIcon slot="start" icon={logOutOutline} />

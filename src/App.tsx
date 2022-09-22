@@ -16,41 +16,17 @@ import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 
 import { ProvideAuth, useAuth } from './hooks/useAuth';
-import Menu from './components/Menu/Menu';
 import Home from './pages/Home/Home';
 import Category from './pages/Category/Category';
 import Play from './pages/Play/Play';
 import Login from './pages/Login';
+import { LoginRoute, PrivateRoute } from './components/Router';
+import Menu from './components/Menu/Menu';
 /* Theme variables */
 import './theme/variables.css';
 import './App.css';
 
 setupIonicReact();
-
-const PrivateRoute: React.FC<RouteProps> = ({
-  children,
-  ...rest
-}) => {
-  const { user, authInfo } = useAuth();
-
-  return (
-    <Route
-      {...rest}
-      render={({ location }) => {
-        return user
-          ? children
-          : (
-            <Redirect
-              to={{
-                pathname: '/login',
-                state: { from: location },
-              }}
-            />
-          )
-      }}
-    />
-  );
-}
 
 const App: React.FC = () => {
   return (
@@ -61,9 +37,10 @@ const App: React.FC = () => {
             <Menu />
 
             <IonRouterOutlet id="main">
-              <Route path="/login" exact={true} component={Login} />
+              <LoginRoute path="/login" exact={true}>
+                <Login />
+              </LoginRoute>
 
-              {/* <Route path="/categories" exact={true} component={Home} /> */}
               <PrivateRoute path="/categories" exact={true}>
                 <Home />
               </PrivateRoute>
@@ -71,23 +48,14 @@ const App: React.FC = () => {
               <PrivateRoute path="/" exact={true}>
                 <Redirect to="/categories" />
               </PrivateRoute>
-              {/* <Route path="/" exact={true}> */}
-              {/*   <Redirect to="/categories" /> */}
-              {/* </Route> */}
 
               <PrivateRoute path="/categories/:category" exact={true}>
                 <Category />
               </PrivateRoute>
-              {/* <Route path="/categories/:category" exact={true}> */}
-              {/*   <Category /> */}
-              {/* </Route> */}
 
               <PrivateRoute path="/play/:id" exact={true}>
                 <Play />
               </PrivateRoute>
-              {/* <Route path="/play/:id" exact={true}> */}
-              {/*   <Play /> */}
-              {/* </Route> */}
             </IonRouterOutlet>
           </IonSplitPane>
         </IonReactRouter>

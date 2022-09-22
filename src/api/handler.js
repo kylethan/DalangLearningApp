@@ -1,8 +1,28 @@
 import app from "./config";
 import data from '../data2.json'
-import { collection, addDoc, getFirestore, updateDoc, getDocs, getDoc, doc, setDoc, deleteDoc } from "firebase/firestore"; 
-import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import {
+    collection,
+    addDoc,
+    getFirestore,
+    updateDoc,
+    getDocs,
+    getDoc,
+    doc,
+    setDoc,
+    deleteDoc,
+} from "firebase/firestore"; 
+import {
+    getStorage,
+    ref,
+    uploadBytes,
+    getDownloadURL,
+    deleteObject,
+} from "firebase/storage";
+import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+} from "firebase/auth";
 
 const db = getFirestore(app);
 const storage = getStorage(app);
@@ -74,6 +94,20 @@ export const getWords = async () => {
             const docSnap = await getDocs(docRef);
             words = docSnap.docs.map(doc => doc.data());
             resolve(words);
+        }
+        catch(err) {
+            reject(err)
+        }
+    })
+}
+
+export const getCategories = async () => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const docRef = collection(db, "categories");
+            const docSnap = await getDocs(docRef);
+            const categories = docSnap.docs.map(doc => doc.data());
+            resolve(categories);
         }
         catch(err) {
             reject(err)

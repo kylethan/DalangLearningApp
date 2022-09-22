@@ -3,22 +3,26 @@ import './Home.css';
 import AppContainer from '../../components/AppContainer/AppContainer';
 import { IonCol, IonIcon, IonItem, IonRow, IonText, IonRouterLink, IonNav, IonButton, useIonAlert, IonLoading, IonBackButton, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonContent } from '@ionic/react';
 import { earth } from 'ionicons/icons';
-import { words, getWords } from '../../api/handler';
+import { words, getWords, getCategories } from '../../api/handler';
 
 import { setUpDb } from '../../api/handler';
 
 const Home: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(false)
     const [wrds, setWords] = useState<Array<any>>([])
+    const [categories, setCategories] = useState<Array<any>>([])
     const [showLoading, setShowLoading] = useState(true);
     const [present] = useIonAlert();
 
     const init = async () => {
         setShowLoading(true)
         try {
-            const res = await getWords();
-            console.log({ res });
-            setWords(res)
+            const [words, categories] = await Promise.all([
+                getWords(),
+                getCategories(),
+            ]);
+            setWords(words)
+            setCategories(categories)
         }
         catch {
             present({
@@ -64,18 +68,25 @@ const Home: React.FC = () => {
                 setup
             </IonButton> } */}
             <IonRow>
-                {
-                    [...new Set(wrds.map(word => word.category))].map((category, key) => (
-                        <IonCol size="6" className='custom' key={key}>
-                            <IonRouterLink routerLink={`/categories/${category}`}>
-                                {/* <IonIcon icon={earth} /> */}
-                                <IonText>
-                                    {category}
-                                </IonText>
-                            </IonRouterLink>
-                        </IonCol>
-                    ))
-                }
+                {categories.map((category) => (
+                    <IonCol size="6" className='custom' key={category.name}>
+                        <IonRouterLink routerLink={`/categories/${category.name}`}>
+                            <IonRow className="category-icon-container">
+                                <img
+                                    className="category-icon"
+                                    src={category.imageUrl}
+                                    alt="category-icon"
+                                    width="32"
+                                    height="32"
+                                />
+                            </IonRow>
+
+                            <IonText>
+                                {category.name}
+                            </IonText>
+                        </IonRouterLink>
+                    </IonCol>
+                ))}
             </IonRow>
             {
                 // showLoading &&
