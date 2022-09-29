@@ -31,13 +31,9 @@ ion-row.word-list:last-child {
     --background:linear-gradient(to bottom right,#0BB1D3, darkorchid);;
     --border-radius: 50% !important;
     width: 40px; height: 40px;
+    
 }
 
 .green-btn button {
     --box-shadow: none;
-}
-
-.ion-content {
-    --background: white;
-    --color: black;
 }

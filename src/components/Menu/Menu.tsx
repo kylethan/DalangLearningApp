@@ -1,39 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useLocation } from 'react-router-dom';
 import {
     IonAvatar,
-  IonButton,
-  IonCol,
-  IonContent,
-  IonIcon,
-  IonItem,
-  IonLabel,
-  IonList,
-  IonListHeader,
-  IonMenu,
-  IonMenuToggle,
-  IonNote,
-  IonRow,
+    IonButton,
+    IonCol,
+    IonContent,
+    IonIcon,
+    IonItem,
+    IonLabel,
+    IonList,
+    IonListHeader,
+    IonMenu,
+    IonMenuToggle,
+    IonRow,
 } from '@ionic/react';
 import {
-    archiveOutline,
-    archiveSharp,
     bookmarkOutline,
     chatbubbleOutline,
     chatbubblesOutline,
-    heartOutline,
-    heartSharp,
-    logOutOutline,
     mailOutline,
-    mailSharp,
-    paperPlaneOutline,
-    paperPlaneSharp,
-    personOutline,
-    personSharp,
-    trashOutline,
-    trashSharp,
-    warningOutline,
-    warningSharp,
 } from 'ionicons/icons';
 
 import { useAuth } from '../../hooks/useAuth';
@@ -62,7 +47,7 @@ const Menu: React.FC = () => {
         },
         {
             title: 'Conversations',
-            url: '/categories',
+            url: '/conversations',
             iosIcon: chatbubblesOutline,
             mdIcon: chatbubbleOutline
         },
@@ -72,7 +57,6 @@ const Menu: React.FC = () => {
             iosIcon: bookmarkOutline,
             mdIcon: bookmarkOutline
         },
-
         // {
         //     title: 'Admin',
         //     url: '/admin',

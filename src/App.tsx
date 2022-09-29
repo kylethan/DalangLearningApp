@@ -20,6 +20,7 @@ import Home from './pages/Home/Home';
 import Category from './pages/Category/Category';
 import Play from './pages/Play/Play';
 import Login from './pages/Login';
+import Conversations from './pages/Conversations';
 import { LoginRoute, PrivateRoute } from './components/Router';
 import Menu from './components/Menu/Menu';
 /* Theme variables */
@@ -55,6 +56,10 @@ const App: React.FC = () => {
 
               <PrivateRoute path="/play/:id" exact={true}>
                 <Play />
+              </PrivateRoute>
+
+              <PrivateRoute path="/conversations" exact={true}>
+                <Conversations />
               </PrivateRoute>
             </IonRouterOutlet>
           </IonSplitPane>

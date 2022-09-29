@@ -1,6 +1,6 @@
 import React from 'react';
 import firebase from 'firebase/compat/app';
-import { Props } from 'react-firebaseui';
+import { Props as ReactFirebaseUIProps } from 'react-firebaseui';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import 'firebase/compat/auth';
 import {
@@ -12,7 +12,7 @@ import './index.css';
 
 const logoIcon = 'https://cdn-icons-png.flaticon.com/512/6550/6550029.png?fbclid=IwAR1mWo38GKUkA6DBenA-fe_PoOoUR4nwI80YhIJSatpzaa-IchYQ6Q-5nv4';
 
-const uiConfig: Props['uiConfig'] = {
+const uiConfig: ReactFirebaseUIProps['uiConfig'] = {
     // Popup signin flow rather than redirect flow.
     signInFlow: 'popup',
     // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.

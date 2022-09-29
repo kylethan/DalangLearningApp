@@ -22,22 +22,6 @@ const authContext = createContext<AuthContextType>({
   signOut: () => Promise.resolve()
 });
 
-// Provider component that wraps your app and makes auth object available to any child component that calls useAuth().
-export const ProvideAuth: React.FC = ({ children }) => {
-  const auth = useProvideAuth();
-
-  return (
-    <authContext.Provider value={auth}>
-      {children}
-    </authContext.Provider>
-  );
-}
-
-// Hook for child components to get the auth object and re-render when it changes.
-export const useAuth = () => {
-  return useContext(authContext);
-};
-
 // Provider hook that creates auth object and handles state
 function useProvideAuth() {
   const [user, setUser] = useState<UserInfo|null>(null);
@@ -53,7 +37,14 @@ function useProvideAuth() {
   // Because this sets state in the callback it will cause any component that utilizes this hook to re-render with the latest auth object.
   useEffect(() => {
     const unsubscribe = firebase.auth().onAuthStateChanged((authData) => {
-      setUser(authData?.providerData[0] as UserInfo);
+      if (authData) {
+        setUser({
+          ...authData?.providerData[0],
+          uid: authData?.uid,
+        } as UserInfo);
+      } else {
+        setUser(null)
+      }
       setAuthInfo((authData as any)?.auth?.currentUser?.stsTokenManager);
     });
 
@@ -68,3 +59,19 @@ function useProvideAuth() {
     signOut,
   };
 }
+
+// Provider component that wraps your app and makes auth object available to any child component that calls useAuth().
+export const ProvideAuth: React.FC = ({ children }) => {
+  const auth = useProvideAuth();
+
+  return (
+    <authContext.Provider value={auth}>
+      {children}
+    </authContext.Provider>
+  );
+}
+
+// Hook for child components to get the auth object and re-render when it changes.
+export const useAuth = () => {
+  return useContext(authContext);
+};

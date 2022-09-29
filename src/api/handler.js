@@ -10,7 +10,7 @@ import {
     doc,
     setDoc,
     deleteDoc,
-} from "firebase/firestore"; 
+} from "firebase/firestore";
 import {
     getStorage,
     ref,
@@ -49,7 +49,7 @@ export const setUpDb  = async () => {
                         const englishRef = ref(storage, `audios/${docRef.id}/english.mp3`);
                         const englishTask = await uploadBytes(englishRef, file);
                         const englishAudioUrl = await getDownloadURL(englishRef)
-                        
+
                         await fetch(`../assets/${dharug_audio_path}`).then(resp => resp.blob())
                         .then(async (blob) => {
                             const fileReader = new FileReader();
@@ -59,7 +59,7 @@ export const setUpDb  = async () => {
                                 const dharugRef = ref(storage, `audios/${docRef.id}/dharug.mp3`);
                                 const dharugTask = await uploadBytes(dharugRef, file);
                                 const dharugAudioUrl = await getDownloadURL(dharugRef)
-                                
+
                                 await updateDoc(docRef, {
                                     englishAudioUrl,
                                     dharugAudioUrl,
@@ -75,9 +75,6 @@ export const setUpDb  = async () => {
                         });
                     };
                 });
-
-
-                
             })
         }
         catch(err) {
@@ -135,7 +132,7 @@ export const registerUser = async (email = '', password = '', username = '') => 
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password)
             const user = userCredential.user;
-            await setUser({ email, username }, user.uid)
+            await setUser(user.uid, { email, username })
             resolve({ email, username });
         }
         catch(err) {
@@ -158,11 +155,15 @@ export const getUser = async (userId) => {
     })
 }
 
-export const setUser = async (payload, userId) => {
+export const setUser = async (userId, payload) => {
     return new Promise(async (resolve, reject) => {
         try {
-            await setDoc(doc(db, "users", userId), { ...payload, userId });
-            resolve({ ...payload, userId });
+            const updatingUser = {
+                ...payload,
+                uid: userId,
+            }
+            await setDoc(doc(db, 'users', userId), updatingUser);
+            resolve(updatingUser);
         }
         catch(err) {
             reject(err)
@@ -212,9 +213,8 @@ export const updateWord  = async (payload) => {
             const { englishAudioFile, dharugAudioFile, docId, ...datum } = payload;
 
             if(docId) {
-    
                 await updateDoc(doc(db, 'words', docId), { ...datum });
-    
+
                 if(englishAudioFile) {
                     const englishRef = ref(storage, `audios/${docId}/english.mp3`);
                     const englishTask = await uploadBytes(englishRef, englishAudioFile);
@@ -223,7 +223,7 @@ export const updateWord  = async (payload) => {
                         englishAudioUrl
                     });
                 }
-    
+
                 if(dharugAudioFile) {
                     const dharugRef = ref(storage, `audios/${docId}/dharug.mp3`);
                     const dharugTask = await uploadBytes(dharugRef, dharugAudioFile);
@@ -246,7 +246,6 @@ export const updateWord  = async (payload) => {
 export const deleteWord  = async (docId) => {
     return new Promise(async (resolve, reject) => {
         try {
-
             if(docId) {
                 await deleteDoc(doc(db, "words", docId));
 
@@ -264,7 +263,57 @@ export const deleteWord  = async (docId) => {
             reject(err)
         }
     })
-
 }
 
+export const getDefaultConversations = async () => {
+    try {
+        const collectionRef = collection(db, 'defaultConversations');
+        const collectionSnap = await getDocs(collectionRef);
+        const conversations = collectionSnap.docs.map(doc => doc.data());
+        return conversations;
+    } catch(err) {
+        console.error({ getDefaultConversations: err });
+        throw err
+    }
+}
 
+export const getUserConversations = async (userId) => {
+    try {
+        const collectionRef = collection(db, 'users', userId, 'conversations');
+        const collectionSnap = await getDocs(collectionRef);
+        const conversations = collectionSnap.docs.map(doc => doc.data());
+        return conversations;
+    } catch(err) {
+        console.error({ getUserConversations: err });
+        throw err
+    }
+}
+
+export const getUserConversation = async (userId, conversationId) => {
+    try {
+        const docRef = doc(db, 'users', userId, 'conversations', conversationId);
+        const docSnap = await getDoc(docRef);
+        return docSnap.data();
+    } catch(err) {
+        console.error({ getUserConversation: err });
+        throw err
+    }
+}
+
+export const addUserConversation = async (userId, conversation) => {
+    try {
+        await addDoc(collection(db, 'users', userId, 'conversations'), conversation)
+    } catch (err) {
+        console.error({ addUserConversation: err });
+        throw err
+    }
+}
+
+export const deleteUserConversation = async (userId, conversationId) => {
+    try {
+        await deleteDoc(doc(db, 'users', userId, 'conversations', conversationId))
+    } catch (err) {
+        console.error({ deleteUserConversation: err });
+        throw err
+    }
+}

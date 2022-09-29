@@ -1,18 +1,40 @@
-import React from 'react';
-import { IonButtons, IonButton, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonImg, IonItem, IonMenuButton, IonPage, IonRow, IonSearchbar, IonText, IonToolbar, IonBackButton } from '@ionic/react';
-import { funnel, appsSharp, list, star, helpCircle, arrowBack, logoAlipay } from 'ionicons/icons'
-import { ReactNode } from 'react';
-import './AppContainer.css';
+import React, { ReactNode } from 'react';
 import { useHistory } from 'react-router';
+import {
+    IonButtons,
+    IonButton,
+    IonContent,
+    IonGrid,
+    IonHeader,
+    IonIcon,
+    IonItem,
+    IonMenuButton,
+    IonPage,
+    IonRow,
+    IonSearchbar,
+    IonText,
+    IonToolbar,
+    IonBackButton,
+} from '@ionic/react';
+import { arrowBack } from 'ionicons/icons'
+
+import './AppContainer.css';
 
 interface AppContainerProps {
     children: ReactNode;
-    category?: string;
+    title?: string;
     backButton?: boolean;
+    backArrow?: boolean;
     searchFunction?: any;
 }
 
-const AppContainer: React.FC<AppContainerProps> = ({ children, category = '', backButton = false, searchFunction = () => {} }) => {
+const AppContainer: React.FC<AppContainerProps> = ({
+    children,
+    title = '',
+    backButton = false,
+    backArrow = false,
+    searchFunction = () => {},
+}) => {
     const history = useHistory()
     
     return (
@@ -20,36 +42,37 @@ const AppContainer: React.FC<AppContainerProps> = ({ children, category = '', ba
             <IonHeader>
                 <IonToolbar style={{ marginTop: '1.2rem' }}>
                     <IonButtons slot="start" color='light'>
-                        {
-                            backButton ?
-                            <IonBackButton defaultHref='/categories' color='light' />
-                            :
-                            <IonMenuButton color='light' />
+                        {backButton
+                            ? <IonBackButton defaultHref='/categories' color='light' />
+                            : <IonMenuButton color='light' />
                         }
                     </IonButtons>
-                    { !backButton && <IonSearchbar placeholder='Search' onIonChange={searchFunction} /> }
+
+                    {!backButton && <IonSearchbar placeholder='Search' onIonChange={searchFunction} />}
                 </IonToolbar>
             </IonHeader>
 
             <IonContent fullscreen>
                 <IonGrid className='header'>
-                    {
-                        category &&
+                    {title && (
                         <IonRow className='breadcrumb'>
                             <IonItem lines='none' style={{ padding: '.5rem 0' }}>
-                                <IonButton fill='clear' color='light' slot='start' onClick={() => history.goBack()}>
-                                    <IonIcon icon={arrowBack} />
-                                </IonButton>
+                                {backArrow && (
+                                    <IonButton fill='clear' color='light' slot='start' onClick={() => history.goBack()}>
+                                        <IonIcon icon={arrowBack} />
+                                    </IonButton>
+                                )}
+
                                 <IonText color='light' style={{ color: '#fff' }}>
-                                    {category}
+                                    {title}
                                 </IonText>
                             </IonItem>
                         </IonRow>
-                    }
+                    )}
                 </IonGrid>
 
                 <div className='ion-padding'>
-                    { children }
+                    {children}
                 </div>
             </IonContent>
         </IonPage>
