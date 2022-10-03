@@ -1,40 +1,74 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, useHistory } from 'react-router';
+import React, { useEffect, useState } from 'react'
+import { useParams, useHistory } from 'react-router'
 import {
     IonButton,
     IonButtons,
+    IonCheckbox,
     IonCol,
     IonContent,
     IonGrid,
     IonHeader,
     IonIcon,
+    IonInput,
     IonItem,
+    IonLabel,
+    IonList,
     IonModal,
     IonRouterLink,
     IonRow,
     IonText,
     IonTitle,
     IonToolbar,
-} from '@ionic/react';
-import { chevronForwardOutline, archiveOutline } from 'ionicons/icons';
+} from '@ionic/react'
+import {
+    chevronForwardOutline,
+    archiveOutline,
+    addCircleOutline,
+} from 'ionicons/icons'
 
-import { words } from '../../api/handler';
-import AppContainer from '../../components/AppContainer/AppContainer';
-import './Category.css';
+import {
+    addUserConversation,
+    getUserConversations,
+    setUserConversations,
+    words,
+} from '../../api/handler'
+import { useAuth } from '../../hooks/useAuth'
+import AppContainer from '../../components/AppContainer/AppContainer'
+import './Category.css'
 
 const Category: React.FC = () => {
     const history = useHistory()
-    const { category } = useParams<{ category: string; }>();
-    const [ wrds, setWords ] = useState<Array<any>>([])
-    const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
-    const [selectedWord, setSelectedWord] = useState<any>(null);
+    const { user } = useAuth()
+    const { category } = useParams<{ category: string }>()
+    const [wrds, setWords] = useState<Array<any>>([])
+    const [conversations, setConversations] = useState<any[]>([])
+    const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
+    const [selectedWord, setSelectedWord] = useState<any>(null)
+    const [selectedConversations, setSelectedConversations] = useState<any>({})
+    const [newConversationName, setNewConversationName] = useState<string>('')
 
     useEffect(() => {
         setWords(words)
     }, [words])
 
+    useEffect(() => {
+        if (user) {
+            getUserConversations(user.uid).then(res => setConversations(res))
+        }
+    }, [user])
+
+    useEffect(() => {
+        if (selectedWord && conversations) {
+            const currentConversations = conversations.reduce((res, cur) => ({
+                ...res,
+                [cur.id]: cur.sentenceIds.includes(`${selectedWord.id}`),
+            }), {})
+            setSelectedConversations(currentConversations)
+        }
+    }, [selectedWord, conversations])
+
     const filter = (e: any) => {
-        const searchVal = String(e.detail.value).toLowerCase();
+        const searchVal = String(e.detail.value).toLowerCase()
         if(searchVal) {
             const res = wrds.filter(w => (
                 String(w.english).toLowerCase().indexOf(searchVal) > -1
@@ -43,8 +77,36 @@ const Category: React.FC = () => {
             ))
             setWords(res)
         } else {
-            setWords(words);
+            setWords(words)
         }
+    }
+
+    const updateConversations = async () => {
+        const updatingConversations = conversations.map(conversation => ({
+            ...conversation,
+            sentenceIds: [
+                ...conversation.sentenceIds.filter((id: string) => id !== `${selectedWord.id}`),
+                ...(selectedConversations[conversation.id]
+                    ? [`${selectedWord.id}`]
+                    : []
+               ),
+            ],
+        }))
+        await setUserConversations(user?.uid, updatingConversations)
+        setConversations(updatingConversations)
+    }
+
+    const createNewConversation = () => {
+        const newConversation = {
+            name: newConversationName,
+            sentenceIds: [`${selectedWord.id}`],
+        }
+        setNewConversationName('')
+        addUserConversation(user?.uid, newConversation)
+            .then(() => getUserConversations(user?.uid))
+            .then(res => {
+                setConversations(res)
+            })
     }
 
     return (
@@ -55,55 +117,60 @@ const Category: React.FC = () => {
         >
             <IonGrid style={{ padding: 0, margin: '-1rem ' }}>
                 {wrds.filter(word => word.category == category).map(word => (
-                    // <IonRouterLink routerLink={`/play/${word.id}`} key={word.id}>
-                        <IonRow className='word-list'>
-                            <IonCol size="8">
-                                <IonItem lines='none'>
-                                    <IonText>
-                                        {word.english}
-                                    </IonText>
-                                </IonItem>
+                    <IonRow className='word-list'>
+                        <IonCol size="8">
+                            <IonItem lines='none'>
+                                <IonText>
+                                    {word.english}
+                                </IonText>
+                            </IonItem>
+                        </IonCol>
 
-                                {/* <IonItem lines='none'> */}
-                                {/*     <IonText> */}
-                                {/*         <b>Dharug:</b> <br /> { word.dharug } */}
-                                {/*     </IonText> */}
-                                {/* </IonItem> */}
-                            </IonCol>
+                        <IonCol size="4">
+                            <IonItem lines='none'>
+                                <IonButton
+                                    className='green-btn'
+                                    fill='clear'
+                                    slot='start'
+                                    style={{ marginRight: 4 }}
+                                    onClick={(e) => {
+                                        setSelectedWord(word)
+                                        setIsOpenModal(true)
+                                    }}
+                                >
+                                    <IonIcon color='light' icon={archiveOutline} />
+                                </IonButton>
 
-                            <IonCol size="4">
-                                <IonItem lines='none'>
-                                    <IonButton
-                                        className='green-btn'
-                                        fill='clear'
-                                        slot='start'
-                                        style={{ marginRight: 4 }}
-                                        onClick={(e) => {
-                                            setSelectedWord(word)
-                                            setIsOpenModal(true)
-                                        }}
-                                    >
-                                        <IonIcon color='light' icon={archiveOutline} />
-                                    </IonButton>
-
-                                    <IonButton
-                                        className='green-btn'
-                                        fill='clear'
-                                        slot='end'
-                                        onClick={() => history.push(`/play/${word.id}`)}
-                                    >
-                                        <IonIcon color='light' icon={chevronForwardOutline} />
-                                    </IonButton>
-                                </IonItem>
-                            </IonCol>
-                        </IonRow>
-                    // </IonRouterLink>
+                                <IonButton
+                                    className='green-btn'
+                                    fill='clear'
+                                    slot='end'
+                                    onClick={() => history.push(`/play/${word.id}`)}
+                                >
+                                    <IonIcon color='light' icon={chevronForwardOutline} />
+                                </IonButton>
+                            </IonItem>
+                        </IonCol>
+                    </IonRow>
                 ))}
             </IonGrid>
 
             <IonModal isOpen={isOpenModal}>
                 <IonHeader>
                     <IonToolbar>
+                        <IonButtons slot="start">
+                            <IonButton
+                                color="medium"
+                                onClick={(e) => {
+                                    setSelectedWord(null)
+                                    setIsOpenModal(false)
+                                    setSelectedConversations({})
+                                }}
+                            >
+                                Close
+                            </IonButton>
+                        </IonButtons>
+
                         <IonTitle>Modal</IonTitle>
 
                         <IonButtons slot="end">
@@ -111,24 +178,58 @@ const Category: React.FC = () => {
                                 onClick={(e) => {
                                     setSelectedWord(null)
                                     setIsOpenModal(false)
+                                    updateConversations().then(() => setSelectedConversations({}))
                                 }}
                             >
-                                Close
+                                Confirm
                             </IonButton>
                         </IonButtons>
                     </IonToolbar>
                 </IonHeader>
 
                 <IonContent className="ion-content ion-padding">
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni illum quidem recusandae ducimus quos
-                        reprehenderit. Veniam, molestias quos, dolorum consequuntur nisi deserunt omnis id illo sit cum qui.
-                        Eaque, dicta.
-                    </p>
+                    <IonItem
+                        className="new-conversation-input"
+                        lines="none"
+                    >
+                        <IonInput
+                            value={newConversationName}
+                            placeholder="New conversation name"
+                            onIonChange={(e) => setNewConversationName(`${e.detail.value}`)}
+                        />
+
+                        <IonButton className="new-conversation-btn" slot="end" onClick={createNewConversation}>
+                            <IonIcon slot="start" icon={addCircleOutline} size="small" />
+
+                            Create
+                        </IonButton>
+                    </IonItem>
+
+                    <IonList className="ion-list" inset>
+                        {conversations.map(conversation => (
+                            <IonItem key={conversation.id}>
+                                <IonCheckbox
+                                    slot="start"
+                                    name="selectedConversations"
+                                    value={conversation.id}
+                                    checked={selectedConversations[conversation.id]}
+                                    onIonChange={(e) => {
+                                        const { detail: { checked, value } } = e
+                                        setSelectedConversations({
+                                            ...selectedConversations,
+                                            [value]: checked,
+                                        })
+                                    }}
+                                />
+
+                                <IonLabel>{conversation.name}</IonLabel>
+                            </IonItem>
+                        ))}
+                    </IonList>
                 </IonContent>
             </IonModal>
         </AppContainer>
-    );
-};
+    )
+}
 
-export default Category;
+export default Category

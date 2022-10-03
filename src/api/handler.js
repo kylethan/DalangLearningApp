@@ -281,7 +281,10 @@ export const getUserConversations = async (userId) => {
     try {
         const collectionRef = collection(db, 'users', userId, 'conversations');
         const collectionSnap = await getDocs(collectionRef);
-        const conversations = collectionSnap.docs.map(doc => doc.data());
+        const conversations = collectionSnap.docs.map(doc => ({
+            ...doc.data(),
+            id: doc.id,
+        }));
         return conversations;
     } catch(err) {
         console.error({ getUserConversations: err });
@@ -293,7 +296,10 @@ export const getUserConversation = async (userId, conversationId) => {
     try {
         const docRef = doc(db, 'users', userId, 'conversations', conversationId);
         const docSnap = await getDoc(docRef);
-        return docSnap.data();
+        return {
+            ...docSnap.data(),
+            id: docSnap.id,
+        };
     } catch(err) {
         console.error({ getUserConversation: err });
         throw err
@@ -309,11 +315,50 @@ export const addUserConversation = async (userId, conversation) => {
     }
 }
 
+export const addUserConversations = async (userId, conversations) => {
+    try {
+        await Promise.all(conversations.map(conversation => addUserConversation(userId, conversation)))
+    } catch (err) {
+        console.error({ addUserConversations: err });
+        throw err
+    }
+}
+
+export const setUserConversation = async (userId, conversation) => {
+    try {
+        const { id } = conversation
+        const updatingConversation = { ...conversation }
+        delete updatingConversation.id
+        await setDoc(doc(db, 'users', userId, 'conversations', id), updatingConversation);
+    } catch (err) {
+        console.error({ setUserConversation: err });
+        throw err
+    }
+}
+
+export const setUserConversations = async (userId, conversations) => {
+    try {
+        await Promise.all(conversations.map(conversation => setUserConversation(userId, conversation)))
+    } catch (err) {
+        console.error({ setUserConversations: err });
+        throw err
+    }
+}
+
 export const deleteUserConversation = async (userId, conversationId) => {
     try {
         await deleteDoc(doc(db, 'users', userId, 'conversations', conversationId))
     } catch (err) {
         console.error({ deleteUserConversation: err });
+        throw err
+    }
+}
+
+export const deleteUserConversations = async (userId, conversationIds) => {
+    try {
+        await Promise.all(conversationIds.map(id => deleteUserConversation(userId, id)))
+    } catch (err) {
+        console.error({ deleteUserConversations: err });
         throw err
     }
 }

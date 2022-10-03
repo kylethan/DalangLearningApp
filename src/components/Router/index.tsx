@@ -10,7 +10,7 @@ import { UserInfo } from 'firebase/auth';
 
 import { useAuth } from '../../hooks/useAuth';
 import {
-  addUserConversation,
+  addUserConversations,
   getDefaultConversations,
   getUser,
   setUser,
@@ -65,7 +65,7 @@ export const LoginRoute: React.FC<RouteProps> = ({
     if (!userData.isGenConversation) {
       const conversations = await getDefaultConversations();
       if (conversations) {
-        await Promise.all(conversations.map(con => addUserConversation(uid, con)))
+        await addUserConversations(uid, conversations)
       }
       await setUser(uid, {
         ...userData,

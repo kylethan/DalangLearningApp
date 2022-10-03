@@ -22,7 +22,9 @@ const Conversations: React.FC = () => {
 
     useEffect(() => {
         if (user) {
-            getUserConversations(user.uid).then(res => setConversations(res))
+            getUserConversations(user.uid).then(res => {
+                setConversations(res);
+            })
         }
     }, [user])
 
