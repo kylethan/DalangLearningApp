@@ -4,17 +4,17 @@ import {
     IonButton,
     IonButtons,
     IonCheckbox,
-    IonCol,
     IonContent,
-    IonGrid,
     IonHeader,
     IonIcon,
     IonInput,
     IonItem,
+    IonItemOption,
+    IonItemOptions,
+    IonItemSliding,
     IonLabel,
     IonList,
     IonModal,
-    IonRow,
     IonText,
     IonTitle,
     IonToolbar,
@@ -23,23 +23,27 @@ import {
     chevronForwardOutline,
     archiveOutline,
     addCircleOutline,
+    trash,
 } from 'ionicons/icons'
 
 import {
     addUserConversation,
+    getUserConversation,
     getUserConversations,
+    setUserConversation,
     setUserConversations,
-    words,
+    words as wordList,
 } from '../../api/handler'
 import { useAuth } from '../../hooks/useAuth'
 import AppContainer from '../../components/AppContainer/AppContainer'
-import './Category.css'
+import './index.css'
 
-const Category: React.FC = () => {
+const ConversationDetail: React.FC = () => {
     const history = useHistory()
+    const { conversationId } = useParams<{ conversationId: string }>()
     const { user } = useAuth()
-    const { category } = useParams<{ category: string }>()
-    const [wrds, setWords] = useState<Array<any>>([])
+    const [words, setWords] = useState<Array<any>>([])
+    const [conversation, setConversation] = useState<any>(null)
     const [conversations, setConversations] = useState<any[]>([])
     const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
     const [selectedWord, setSelectedWord] = useState<any>(null)
@@ -47,14 +51,27 @@ const Category: React.FC = () => {
     const [newConversationName, setNewConversationName] = useState<string>('')
 
     useEffect(() => {
-        setWords(words)
-    }, [words])
-
-    useEffect(() => {
         if (user) {
-            getUserConversations(user.uid).then(res => setConversations(res))
+            getUserConversations(user.uid).then(res => {
+                setConversations(res);
+            })
         }
     }, [user])
+
+    useEffect(() => {
+        if (user && conversationId) {
+            getUserConversation(user.uid, conversationId).then(res => {
+                setConversation(res)
+            })
+        }
+    }, [user, conversationId])
+
+    useEffect(() => {
+        if (conversation) {
+            const currentWords = wordList.filter(word => conversation.sentenceIds.includes(`${word.id}`))
+            setWords(currentWords)
+        }
+    }, [conversation])
 
     useEffect(() => {
         if (selectedWord && conversations) {
@@ -69,23 +86,40 @@ const Category: React.FC = () => {
     const filter = (e: any) => {
         const searchVal = String(e.detail.value).toLowerCase()
         if(searchVal) {
-            const res = wrds.filter(w => (
+            const res = words.filter(w => (
                 String(w.english).toLowerCase().indexOf(searchVal) > -1
                 || String(w.dharug).toLowerCase().indexOf(searchVal) > -1
                 || String(w.category).toLowerCase().indexOf(searchVal) > -1
             ))
             setWords(res)
         } else {
-            setWords(words)
+            const currentWords = wordList.filter(word => conversation.sentenceIds.includes(`${word.id}`))
+            setWords(currentWords)
         }
     }
 
-    const updateConversations = async () => {
-        const updatingConversations = conversations.map(conversation => ({
+    const removeSentence = async (sentenceId: number) => {
+        const updatingConversation = {
             ...conversation,
+            sentenceIds: conversation.sentenceIds.filter((id: string) => id !== `${sentenceId}`)
+        }
+        await setUserConversation(user?.uid, updatingConversation)
+        setConversation(updatingConversation)
+        setConversations(conversations.map((it) => {
+            if (it.id === conversation.id) {
+                return updatingConversation
+            }
+
+            return it
+        }))
+    }
+
+    const updateConversations = async () => {
+        const updatingConversations = conversations.map(it => ({
+            ...it,
             sentenceIds: [
-                ...conversation.sentenceIds.filter((id: string) => id !== `${selectedWord.id}`),
-                ...(selectedConversations[conversation.id]
+                ...it.sentenceIds.filter((id: string) => id !== `${selectedWord.id}`),
+                ...(selectedConversations[it.id]
                     ? [`${selectedWord.id}`]
                     : []
                ),
@@ -93,6 +127,7 @@ const Category: React.FC = () => {
         }))
         await setUserConversations(user?.uid, updatingConversations)
         setConversations(updatingConversations)
+        setConversation(updatingConversations.find(it => it.id === conversation.id))
     }
 
     const createNewConversation = () => {
@@ -110,49 +145,54 @@ const Category: React.FC = () => {
 
     return (
         <AppContainer
-            title={category}
+            title={conversation?.name}
             backArrow={true}
             searchFunction={filter}
         >
-            <IonGrid style={{ padding: 0, margin: '-1rem ' }}>
-                {wrds.filter(word => word.category == category).map(word => (
-                    <IonRow className='word-list' key={word.id}>
-                        <IonCol size="8">
-                            <IonItem lines='none'>
-                                <IonText>
-                                    {word.english}
-                                </IonText>
-                            </IonItem>
-                        </IonCol>
+            <IonList style={{ padding: 0, margin: '-1rem ' }}>
+                {words.map(word => (
+                    <IonItemSliding key={word.id}>
+                        <IonItem className="word-item" lines="inset">
+                            <IonText>
+                                {word.english}
+                            </IonText>
 
-                        <IonCol size="4">
-                            <IonItem lines='none'>
-                                <IonButton
-                                    className='green-btn'
-                                    fill='clear'
-                                    slot='start'
-                                    style={{ marginRight: 4 }}
-                                    onClick={() => {
-                                        setSelectedWord(word)
-                                        setIsOpenModal(true)
-                                    }}
-                                >
-                                    <IonIcon color='light' icon={archiveOutline} />
-                                </IonButton>
+                            <IonButton
+                                className="green-btn"
+                                fill="clear"
+                                slot="end"
+                                style={{ marginRight: 4 }}
+                                onClick={() => {
+                                    setSelectedWord(word)
+                                    setIsOpenModal(true)
+                                }}
+                            >
+                                <IonIcon color="light" icon={archiveOutline} />
+                            </IonButton>
 
-                                <IonButton
-                                    className='green-btn'
-                                    fill='clear'
-                                    slot='end'
-                                    onClick={() => history.push(`/play/${word.id}`)}
-                                >
-                                    <IonIcon color='light' icon={chevronForwardOutline} />
-                                </IonButton>
-                            </IonItem>
-                        </IonCol>
-                    </IonRow>
+                            <IonButton
+                                className="green-btn"
+                                fill="clear"
+                                slot="end"
+                                onClick={() => history.push(`/play/${word.id}`)}
+                            >
+                                <IonIcon color="light" icon={chevronForwardOutline} />
+                            </IonButton>
+                        </IonItem>
+
+                        <IonItemOptions>
+                            <IonItemOption color="danger" onClick={() => removeSentence(word.id)}>
+                                <IonIcon
+                                    color="light"
+                                    slot="icon-only"
+                                    icon={trash}
+                                    size="large"
+                                />
+                            </IonItemOption>
+                        </IonItemOptions>
+                    </IonItemSliding>
                 ))}
-            </IonGrid>
+            </IonList>
 
             <IonModal isOpen={isOpenModal}>
                 <IonHeader>
@@ -190,6 +230,7 @@ const Category: React.FC = () => {
                     <IonItem
                         className="new-conversation-input"
                         lines="none"
+                        fill="outline"
                     >
                         <IonInput
                             value={newConversationName}
@@ -231,4 +272,4 @@ const Category: React.FC = () => {
     )
 }
 
-export default Category
+export default ConversationDetail

@@ -21,6 +21,7 @@ import Category from './pages/Category/Category';
 import Play from './pages/Play/Play';
 import Login from './pages/Login';
 import Conversations from './pages/Conversations';
+import ConversationDetail from './pages/ConversationDetail';
 import { LoginRoute, PrivateRoute } from './components/Router';
 import Menu from './components/Menu/Menu';
 /* Theme variables */
@@ -60,6 +61,10 @@ const App: React.FC = () => {
 
               <PrivateRoute path="/conversations" exact={true}>
                 <Conversations />
+              </PrivateRoute>
+
+              <PrivateRoute path="/conversations/:conversationId" exact={true}>
+                <ConversationDetail />
               </PrivateRoute>
             </IonRouterOutlet>
           </IonSplitPane>

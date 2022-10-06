@@ -1,24 +1,40 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import {
     IonButton,
-    IonCol,
-    IonGrid,
+    IonButtons,
+    IonContent,
+    IonHeader,
     IonIcon,
+    IonInput,
     IonItem,
-    IonRouterLink,
-    IonRow,
+    IonItemOption,
+    IonItemOptions,
+    IonItemSliding,
+    IonList,
+    IonModal,
     IonText,
+    IonTitle,
+    IonToolbar,
 } from '@ionic/react';
-import { chevronForwardOutline } from 'ionicons/icons';
+import { chevronForwardOutline, createOutline, trash } from 'ionicons/icons';
 
-import { getUserConversations, words } from '../../api/handler';
+import {
+    deleteUserConversation,
+    getUserConversations,
+    setUserConversation,
+} from '../../api/handler';
 import { useAuth } from '../../hooks/useAuth';
 import AppContainer from '../../components/AppContainer/AppContainer';
 import './index.css';
 
 const Conversations: React.FC = () => {
+    const history = useHistory()
     const { user } = useAuth()
     const [conversations, setConversations] = useState<any[]>([])
+    const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
+    const [selectedConversation, setSelectedConversation] = useState<any>(null)
+    const [updatingConversationName, setUpdatingConversationName] = useState<string>('')
 
     useEffect(() => {
         if (user) {
@@ -28,37 +44,123 @@ const Conversations: React.FC = () => {
         }
     }, [user])
 
+    const renameConversation = async () => {
+        if (selectedConversation) {
+            const updatingConversation = {
+                ...selectedConversation,
+                name: updatingConversationName,
+            }
+            await setUserConversation(user?.uid, updatingConversation)
+            setConversations(conversations.map(it => {
+                if (it.id === updatingConversation.id) {
+                    return updatingConversation
+                }
+
+                return it
+            }))
+        }
+    }
+
+    const deleteConversation = async (conversationId: string) => {
+        await deleteUserConversation(user?.uid, conversationId)
+        setConversations(conversations.filter(({ id }) => id !== conversationId))
+    }
+
     return (
         <AppContainer>
-            <IonGrid style={{ padding: 0, margin: '-1rem ' }}>
+            <IonList style={{ padding: 0, margin: '-1rem ' }}>
                 {conversations.map(conversation => (
-                    <IonRouterLink routerLink={`/play/${conversation.name}`} key={conversation.name}>
-                        <IonRow className='word-list'>
-                            <IonCol size='9'>
-                                <IonItem lines='none'>
-                                    <IonText>
-                                        {conversation.name}
-                                    </IonText>
-                                </IonItem>
+                    <IonItemSliding key={conversation.id}>
+                        <IonItem className="category-item" lines="inset">
+                            <IonText>
+                                {conversation.name}
+                            </IonText>
 
-                                {/* <IonItem lines='none'> */}
-                                {/*     <IonText> */}
-                                {/*         <b>Dharug:</b> <br /> { word.dharug } */}
-                                {/*     </IonText> */}
-                                {/* </IonItem> */}
-                            </IonCol>
+                            <IonButton
+                                fill="clear"
+                                slot="end"
+                                className="green-btn"
+                                onClick={() => history.push(`/conversations/${conversation.id}`)}
+                            >
+                                <IonIcon color="light" icon={chevronForwardOutline} />
+                            </IonButton>
+                        </IonItem>
 
-                            <IonCol size='3'>
-                                <IonItem lines='none'>
-                                    <IonButton fill='clear' slot='end' className='green-btn'>
-                                        <IonIcon color='light' icon={chevronForwardOutline} />
-                                    </IonButton>
-                                </IonItem>
-                            </IonCol>
-                        </IonRow>
-                    </IonRouterLink>
+                        <IonItemOptions>
+                            <IonItemOption
+                                color="warning"
+                                onClick={() => {
+                                    setSelectedConversation(conversation)
+                                    setIsOpenModal(true)
+                                }}>
+                                <IonIcon
+                                    color="light"
+                                    slot="icon-only"
+                                    icon={createOutline}
+                                    size="large"
+                                />
+                            </IonItemOption>
+
+                            <IonItemOption color="danger" onClick={() => deleteConversation(conversation.id)}>
+                                <IonIcon
+                                    color="light"
+                                    slot="icon-only"
+                                    icon={trash}
+                                    size="large"
+                                />
+                            </IonItemOption>
+                        </IonItemOptions>
+                    </IonItemSliding>
                 ))}
-            </IonGrid>
+            </IonList>
+
+            <IonModal isOpen={isOpenModal}>
+                <IonHeader>
+                    <IonToolbar>
+                        <IonButtons slot="start">
+                            <IonButton
+                                color="medium"
+                                onClick={() => {
+                                    setSelectedConversation(null)
+                                    setIsOpenModal(false)
+                                    setUpdatingConversationName('')
+                                }}
+                            >
+                                Close
+                            </IonButton>
+                        </IonButtons>
+
+                        <IonTitle>Rename conversation</IonTitle>
+
+                        <IonButtons slot="end">
+                            <IonButton
+                                onClick={() => {
+                                    setIsOpenModal(false)
+                                    renameConversation().then(() => {
+                                        setSelectedConversation(null)
+                                        setUpdatingConversationName('')
+                                    })
+                                }}
+                            >
+                                Confirm
+                            </IonButton>
+                        </IonButtons>
+                    </IonToolbar>
+                </IonHeader>
+
+                <IonContent className="ion-content ion-padding">
+                    <IonItem
+                        className="new-conversation-input"
+                        lines="none"
+                    >
+                        <IonInput
+                            value={updatingConversationName}
+                            placeholder="Rename conversation"
+                            onIonChange={(e) => setUpdatingConversationName(`${e.detail.value}`)}
+                        />
+                    </IonItem>
+                </IonContent>
+            </IonModal>
         </AppContainer>
 
     );
