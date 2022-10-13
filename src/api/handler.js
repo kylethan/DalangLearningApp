@@ -1,5 +1,3 @@
-import app from "./config";
-import data from '../data2.json'
 import {
     collection,
     addDoc,
@@ -24,8 +22,11 @@ import {
     signInWithEmailAndPassword,
 } from "firebase/auth";
 
+import app from "./config";
+import data from '../data2.json'
+
 const db = getFirestore(app);
-const storage = getStorage(app);
+export const storage = getStorage(app);
 const auth = getAuth();
 
 export let words = [];
