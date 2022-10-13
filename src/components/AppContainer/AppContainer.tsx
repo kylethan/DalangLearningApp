@@ -36,7 +36,7 @@ const AppContainer: React.FC<AppContainerProps> = ({
     searchFunction = () => {},
 }) => {
     const history = useHistory()
-    
+
     return (
         <IonPage>
             <IonHeader>

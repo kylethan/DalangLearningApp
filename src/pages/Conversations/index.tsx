@@ -37,6 +37,12 @@ const Conversations: React.FC = () => {
     const [updatingConversationName, setUpdatingConversationName] = useState<string>('')
 
     useEffect(() => {
+        getUserConversations(user?.uid).then(res => {
+            setConversations(res);
+        })
+    }, [])
+
+    useEffect(() => {
         if (user) {
             getUserConversations(user.uid).then(res => {
                 setConversations(res);
