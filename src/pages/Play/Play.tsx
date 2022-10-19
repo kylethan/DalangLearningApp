@@ -258,6 +258,7 @@ const Play: React.FC = () => {
                                         paddingInlineEnd: 'unset',
                                         display: 'flex',
                                         alignItems: 'center',
+                                        wordBreak: 'break-word',
                                     }}
                                 >
                                     <IonText color="light">
