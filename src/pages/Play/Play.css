@@ -39,10 +39,13 @@ div.item:first-child ion-icon {
 
 div.item p {
     flex: 1;
-    max-width: 90%;
 }
 
 .btns {
     display: flex;
     justify-content: center;
+}
+
+.record-container {
+    padding: .5rem 1rem;
 }
