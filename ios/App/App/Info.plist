@@ -54,5 +54,7 @@
 	<true/>
 	<key>LSSupportOpeningDocumentsInPlace</key>
 	<true/>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Hi Hoa</string>
 </dict>
 </plist>

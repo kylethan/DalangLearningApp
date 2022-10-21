@@ -78,10 +78,16 @@ const Play: React.FC = () => {
         setRecords(files)
     }
 
-    const startRecording = () => {
+    const startRecording = async () => {
+        const {value:canrecord} = await VoiceRecorder.canDeviceVoiceRecord()
+        if (!canrecord) {
+            await VoiceRecorder.requestAudioRecordingPermission()
+        }
+        
         VoiceRecorder.startRecording();
         console.log('Starting');
         setIsRecording(true)
+
     }
 
     const stopRecording = async () => {
@@ -272,6 +278,7 @@ const Play: React.FC = () => {
                                 <IonCol size="4">
                                     <IonButtons style={{ justifyContent: 'space-between' }}>
                                         <IonButton
+                                            color='light'
                                             fill="outline"
                                             shape="round"
                                             style={{
@@ -284,6 +291,7 @@ const Play: React.FC = () => {
                                         </IonButton>
 
                                         <IonButton
+                                            color='light'
                                             fill="outline"
                                             shape="round"
                                             style={{

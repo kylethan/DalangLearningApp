@@ -152,11 +152,12 @@ const ConversationDetail: React.FC = () => {
             <IonList style={{ padding: 0, margin: '-1rem ' }}>
                 {words.map(word => (
                     <IonItemSliding key={word.id}>
-                        <IonItem className="word-item" lines="inset">
+                        <IonItem className="word-item" lines="inset" >
                             <IonText>
-                                {word.english}
+                                <p>{word.english}</p>
+                                <h4>{word.dharug}</h4>
                             </IonText>
-
+                            
                             <IonButton
                                 className="green-btn"
                                 fill="clear"
