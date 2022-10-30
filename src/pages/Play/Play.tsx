@@ -79,15 +79,9 @@ const Play: React.FC = () => {
     }
 
     const startRecording = async () => {
-        const {value:canrecord} = await VoiceRecorder.canDeviceVoiceRecord()
-        if (!canrecord) {
-            await VoiceRecorder.requestAudioRecordingPermission()
-        }
-        
-        VoiceRecorder.startRecording();
+        await VoiceRecorder.startRecording();
         console.log('Starting');
         setIsRecording(true)
-
     }
 
     const stopRecording = async () => {
@@ -126,6 +120,7 @@ const Play: React.FC = () => {
 
     useEffect(() => {
         loadFiles()
+        VoiceRecorder.requestAudioRecordingPermission()
     }, [])
 
     useEffect(() => {

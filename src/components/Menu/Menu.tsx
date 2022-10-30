@@ -51,12 +51,12 @@ const Menu: React.FC = () => {
             iosIcon: chatbubblesOutline,
             mdIcon: chatbubbleOutline
         },
-        {
-            title: 'Favourites',
-            url: '/categories',
-            iosIcon: bookmarkOutline,
-            mdIcon: bookmarkOutline
-        },
+        // {
+        //     title: 'Favourites',
+        //     url: '/categories',
+        //     iosIcon: bookmarkOutline,
+        //     mdIcon: bookmarkOutline
+        // },
         // {
         //     title: 'Admin',
         //     url: '/admin',

@@ -114,45 +114,81 @@ const Category: React.FC = () => {
             backArrow={true}
             searchFunction={filter}
         >
-            <IonGrid style={{ padding: 0, margin: '-1rem ' }}>
+            {/* <IonGrid style={{ padding: 0, margin: '-1rem ' }}> */}
+            {/*     {wrds.filter(word => word.category == category).map(word => ( */}
+            {/*         <IonRow className='word-list' key={word.id}> */}
+            {/*             <IonCol size="8"> */}
+            {/*                 <IonItem lines='none'> */}
+            {/*                     <IonText> */}
+            {/*                         {word.english} */}
+            {/*                     </IonText> */}
+            {/*                 </IonItem> */}
+            {/*             </IonCol> */}
+
+            {/*             <IonCol size="4"> */}
+            {/*                 <IonItem lines='none'> */}
+            {/*                     <IonButton */}
+            {/*                         className='green-btn' */}
+            {/*                         fill='clear' */}
+            {/*                         slot='start' */}
+            {/*                         style={{ marginRight: 4 }} */}
+            {/*                         onClick={() => { */}
+            {/*                             setSelectedWord(word) */}
+            {/*                             setIsOpenModal(true) */}
+            {/*                         }} */}
+            {/*                     > */}
+            {/*                         <IonIcon color='light' icon={archiveOutline} /> */}
+            {/*                     </IonButton> */}
+
+            {/*                     <IonButton */}
+            {/*                         className='green-btn' */}
+            {/*                         fill='clear' */}
+            {/*                         slot='end' */}
+            {/*                         onClick={() => history.push(`/play/${word.id}`)} */}
+            {/*                     > */}
+            {/*                         <IonIcon color='light' icon={chevronForwardOutline} /> */}
+            {/*                     </IonButton> */}
+            {/*                 </IonItem> */}
+            {/*             </IonCol> */}
+            {/*         </IonRow> */}
+            {/*     ))} */}
+            {/* </IonGrid> */}
+
+            <IonList style={{ padding: 0, margin: '-1rem ' }}>
                 {wrds.filter(word => word.category == category).map(word => (
-                    <IonRow className='word-list' key={word.id}>
-                        <IonCol size="8">
-                            <IonItem lines='none'>
-                                <IonText>
-                                    {word.english}
-                                </IonText>
-                            </IonItem>
-                        </IonCol>
+                    <IonItem
+                        key={word.id}
+                        className="word-item"
+                        lines="inset"
+                    >
+                        <IonText>
+                            <p>{word.english}</p>
+                        </IonText>
 
-                        <IonCol size="4">
-                            <IonItem lines='none'>
-                                <IonButton
-                                    className='green-btn'
-                                    fill='clear'
-                                    slot='start'
-                                    style={{ marginRight: 4 }}
-                                    onClick={() => {
-                                        setSelectedWord(word)
-                                        setIsOpenModal(true)
-                                    }}
-                                >
-                                    <IonIcon color='light' icon={archiveOutline} />
-                                </IonButton>
+                        <IonButton
+                            className="green-btn"
+                            fill="clear"
+                            slot="end"
+                            style={{ marginRight: 4 }}
+                            onClick={() => {
+                                setSelectedWord(word)
+                                setIsOpenModal(true)
+                            }}
+                        >
+                            <IonIcon color="light" icon={archiveOutline} />
+                        </IonButton>
 
-                                <IonButton
-                                    className='green-btn'
-                                    fill='clear'
-                                    slot='end'
-                                    onClick={() => history.push(`/play/${word.id}`)}
-                                >
-                                    <IonIcon color='light' icon={chevronForwardOutline} />
-                                </IonButton>
-                            </IonItem>
-                        </IonCol>
-                    </IonRow>
+                        <IonButton
+                            className="green-btn"
+                            fill="clear"
+                            slot="end"
+                            onClick={() => history.push(`/play/${word.id}`)}
+                        >
+                            <IonIcon color="light" icon={chevronForwardOutline} />
+                        </IonButton>
+                    </IonItem>
                 ))}
-            </IonGrid>
+            </IonList>
 
             <IonModal isOpen={isOpenModal}>
                 <IonHeader>
