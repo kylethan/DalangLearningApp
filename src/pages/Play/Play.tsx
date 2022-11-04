@@ -246,7 +246,7 @@ const Play: React.FC = () => {
 
                         <IonGrid className="record-container">
                             <IonRow className="item">
-                                <IonText color="light">
+                                <IonText color="dark">
                                     <h2>Record</h2>
                                 </IonText>
                             </IonRow>
@@ -262,7 +262,7 @@ const Play: React.FC = () => {
                                         wordBreak: 'break-word',
                                     }}
                                 >
-                                    <IonText color="light">
+                                    <IonText color="dark">
                                         {hasRecord
                                             ? fileName
                                             : 'There is no record yet'
@@ -273,7 +273,7 @@ const Play: React.FC = () => {
                                 <IonCol size="4">
                                     <IonButtons style={{ justifyContent: 'space-between' }}>
                                         <IonButton
-                                            color='light'
+                                            color='dark'
                                             fill="outline"
                                             shape="round"
                                             style={{
@@ -286,7 +286,7 @@ const Play: React.FC = () => {
                                         </IonButton>
 
                                         <IonButton
-                                            color='light'
+                                            color='dark'
                                             fill="outline"
                                             shape="round"
                                             style={{
