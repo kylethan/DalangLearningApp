@@ -246,8 +246,8 @@ const Play: React.FC = () => {
 
                         <IonGrid className="record-container">
                             <IonRow className="item">
-                                <IonText color="dark">
-                                    <h2>Record</h2>
+                                <IonText class='normal'>
+                                    <h2 >Record</h2>
                                 </IonText>
                             </IonRow>
 
@@ -262,10 +262,11 @@ const Play: React.FC = () => {
                                         wordBreak: 'break-word',
                                     }}
                                 >
-                                    <IonText color="dark">
+                                    <IonText class='normal'>
                                         {hasRecord
                                             ? fileName
                                             : 'There is no record yet'
+                    
                                         }
                                     </IonText>
                                 </IonCol>
@@ -273,7 +274,7 @@ const Play: React.FC = () => {
                                 <IonCol size="4">
                                     <IonButtons style={{ justifyContent: 'space-between' }}>
                                         <IonButton
-                                            color='dark'
+                                            class='normal'
                                             fill="outline"
                                             shape="round"
                                             style={{
@@ -286,7 +287,7 @@ const Play: React.FC = () => {
                                         </IonButton>
 
                                         <IonButton
-                                            color='dark'
+                                            class='normal'
                                             fill="outline"
                                             shape="round"
                                             style={{

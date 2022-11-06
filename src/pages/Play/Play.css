@@ -49,3 +49,7 @@ div.item p {
 .record-container {
     padding: .5rem 1rem;
 }
+
+.normal {
+    color: black
+}
