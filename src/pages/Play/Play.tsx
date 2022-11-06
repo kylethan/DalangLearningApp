@@ -131,7 +131,7 @@ const Play: React.FC = () => {
     const playAudio = async (filePath: string, playing: string) => {
         // const file = Media.create(filePath)
         // console.log({ filePath });
-        const audioDataRef = ref(storage, `audio_data/${filePath}`)
+        const audioDataRef = ref(storage, `${filePath}`)
         const url = await getDownloadURL(audioDataRef)
         // const file = new MediaObject(audio)
         // file.play();

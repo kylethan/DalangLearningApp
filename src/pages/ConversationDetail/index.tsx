@@ -152,7 +152,8 @@ const ConversationDetail: React.FC = () => {
             <IonList style={{ padding: 0, margin: '-1rem ' }}>
                 {words.map(word => (
                     <IonItemSliding key={word.id}>
-                        <IonItem className="word-item" lines="inset" >
+                        <IonItem className="word-item" lines="inset" 
+                        onClick={() => history.push(`/play/${word.id}`)}>
                             <IonText>
                                 <p>{word.english}</p>
                                 <h4>{word.dharug}</h4>
@@ -175,7 +176,7 @@ const ConversationDetail: React.FC = () => {
                                 className="green-btn"
                                 fill="clear"
                                 slot="end"
-                                onClick={() => history.push(`/play/${word.id}`)}
+                                
                             >
                                 <IonIcon color="light" icon={chevronForwardOutline} />
                             </IonButton>

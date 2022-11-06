@@ -160,6 +160,7 @@ const Category: React.FC = () => {
                         key={word.id}
                         className="word-item"
                         lines="inset"
+                        onClick={() => history.push(`/play/${word.id}`)}
                     >
                         <IonText>
                             <p>{word.english}</p>
@@ -182,7 +183,7 @@ const Category: React.FC = () => {
                             className="green-btn"
                             fill="clear"
                             slot="end"
-                            onClick={() => history.push(`/play/${word.id}`)}
+                            
                         >
                             <IonIcon color="light" icon={chevronForwardOutline} />
                         </IonButton>
@@ -206,7 +207,7 @@ const Category: React.FC = () => {
                             </IonButton>
                         </IonButtons>
 
-                        <IonTitle>Modal</IonTitle>
+                        <IonTitle>Conversation Topic</IonTitle>
 
                         <IonButtons slot="end">
                             <IonButton

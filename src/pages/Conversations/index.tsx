@@ -77,7 +77,8 @@ const Conversations: React.FC = () => {
             <IonList style={{ padding: 0, margin: '-1rem ' }}>
                 {conversations.map(conversation => (
                     <IonItemSliding key={conversation.id}>
-                        <IonItem className="category-item" lines="inset">
+                        <IonItem className="category-item" lines="inset"
+                        onClick={() => history.push(`/conversations/${conversation.id}`)}>
                             <IonText>
                                 {conversation.name}
                             </IonText>
@@ -86,7 +87,7 @@ const Conversations: React.FC = () => {
                                 fill="clear"
                                 slot="end"
                                 className="green-btn"
-                                onClick={() => history.push(`/conversations/${conversation.id}`)}
+                                
                             >
                                 <IonIcon color="light" icon={chevronForwardOutline} />
                             </IonButton>
