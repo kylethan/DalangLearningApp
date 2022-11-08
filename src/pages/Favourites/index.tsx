@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams, useHistory } from 'react-router'
+import { useHistory, useLocation } from 'react-router'
 import {
     IonButton,
     IonButtons,
@@ -9,9 +9,6 @@ import {
     IonIcon,
     IonInput,
     IonItem,
-    IonItemOption,
-    IonItemOptions,
-    IonItemSliding,
     IonLabel,
     IonList,
     IonModal,
@@ -23,17 +20,13 @@ import {
     chevronForwardOutline,
     archiveOutline,
     addCircleOutline,
-    trash,
 } from 'ionicons/icons'
 
 import {
     addUserConversation,
-    getUserConversation,
     getUserConversations,
     getUserFavouriteSentences,
-    setUserConversation,
     setUserConversations,
-    words as wordList,
 } from '../../api/handler'
 import { useAuth } from '../../hooks/useAuth'
 import AppContainer from '../../components/AppContainer/AppContainer'
@@ -41,10 +34,10 @@ import './index.css'
 
 const Favourites: React.FC = () => {
     const history = useHistory()
-    const { conversationId } = useParams<{ conversationId: string }>()
+    const location = useLocation()
     const { user } = useAuth()
     const [words, setWords] = useState<Array<any>>([])
-    const [conversation, setConversation] = useState<any>(null)
+    const [favourites, setFavourites] = useState<Array<any>>([])
     const [conversations, setConversations] = useState<any[]>([])
     const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
     const [selectedWord, setSelectedWord] = useState<any>(null)
@@ -56,26 +49,13 @@ const Favourites: React.FC = () => {
             getUserConversations(user.uid).then(res => {
                 setConversations(res);
             })
+
             getUserFavouriteSentences(user.uid).then(res => {
+                setFavourites(res)
                 setWords(res)
             })
         }
-    }, [user])
-
-    useEffect(() => {
-        if (user && conversationId) {
-            getUserConversation(user.uid, conversationId).then(res => {
-                setConversation(res)
-            })
-        }
-    }, [user, conversationId])
-
-    // useEffect(() => {
-    //     if (conversation) {
-    //         const currentWords = wordList.filter(word => conversation.sentenceIds.includes(`${word.id}`))
-    //         setWords(currentWords)
-    //     }
-    // }, [conversation])
+    }, [user, location.key])
 
     useEffect(() => {
         if (selectedWord && conversations) {
@@ -90,32 +70,15 @@ const Favourites: React.FC = () => {
     const filter = (e: any) => {
         const searchVal = String(e.detail.value).toLowerCase()
         if(searchVal) {
-            const res = words.filter(w => (
+            const res = favourites.filter(w => (
                 String(w.english).toLowerCase().indexOf(searchVal) > -1
                 || String(w.dharug).toLowerCase().indexOf(searchVal) > -1
                 || String(w.category).toLowerCase().indexOf(searchVal) > -1
             ))
             setWords(res)
         } else {
-            const currentWords = wordList.filter(word => conversation.sentenceIds.includes(`${word.id}`))
-            setWords(currentWords)
+            setWords(favourites)
         }
-    }
-
-    const removeSentence = async (sentenceId: number) => {
-        const updatingConversation = {
-            ...conversation,
-            sentenceIds: conversation.sentenceIds.filter((id: string) => id !== `${sentenceId}`)
-        }
-        await setUserConversation(user?.uid, updatingConversation)
-        setConversation(updatingConversation)
-        setConversations(conversations.map((it) => {
-            if (it.id === conversation.id) {
-                return updatingConversation
-            }
-
-            return it
-        }))
     }
 
     const updateConversations = async () => {
@@ -131,7 +94,6 @@ const Favourites: React.FC = () => {
         }))
         await setUserConversations(user?.uid, updatingConversations)
         setConversations(updatingConversations)
-        setConversation(updatingConversations.find(it => it.id === conversation.id))
     }
 
     const createNewConversation = () => {
@@ -148,54 +110,41 @@ const Favourites: React.FC = () => {
     }
 
     return (
-        <AppContainer
-            // title={conversation?.name}
-            // backArrow={true}
-            searchFunction={filter}
-        >
+        <AppContainer searchFunction={filter}>
             <IonList style={{ padding: 0, margin: '-1rem ' }}>
                 {words.map(word => (
-                    <IonItemSliding key={word.id}>
-                        <IonItem className="word-item" lines="inset"
-                        onClick={() => history.push(`/play/${word.id}`)}>
-                            <IonText>
-                                <p>{word.english}</p>
-                                <h4>{word.dharug}</h4>
-                            </IonText>
+                    <IonItem
+                        key={word.id}
+                        className="word-item"
+                        lines="inset"
+                        onClick={() => history.push(`/play/${word.id}`)}
+                    >
+                        <IonText>
+                            <p>{word.english}</p>
+                            <h4>{word.dharug}</h4>
+                        </IonText>
 
-                            <IonButton
-                                className="green-btn"
-                                fill="clear"
-                                slot="end"
-                                style={{ marginRight: 4 }}
-                                onClick={() => {
-                                    setSelectedWord(word)
-                                    setIsOpenModal(true)
-                                }}
-                            >
-                                <IonIcon color="light" icon={archiveOutline} />
-                            </IonButton>
+                        <IonButton
+                            className="green-btn"
+                            fill="clear"
+                            slot="end"
+                            style={{ marginRight: 4 }}
+                            onClick={() => {
+                                setSelectedWord(word)
+                                setIsOpenModal(true)
+                            }}
+                        >
+                            <IonIcon color="light" icon={archiveOutline} />
+                        </IonButton>
 
-                            <IonButton
-                                className="green-btn"
-                                fill="clear"
-                                slot="end"
-                            >
-                                <IonIcon color="light" icon={chevronForwardOutline} />
-                            </IonButton>
-                        </IonItem>
-
-                        <IonItemOptions>
-                            <IonItemOption color="danger" onClick={() => removeSentence(word.id)}>
-                                <IonIcon
-                                    color="light"
-                                    slot="icon-only"
-                                    icon={trash}
-                                    size="large"
-                                />
-                            </IonItemOption>
-                        </IonItemOptions>
-                    </IonItemSliding>
+                        <IonButton
+                            className="green-btn"
+                            fill="clear"
+                            slot="end"
+                        >
+                            <IonIcon color="light" icon={chevronForwardOutline} />
+                        </IonButton>
+                    </IonItem>
                 ))}
             </IonList>
 

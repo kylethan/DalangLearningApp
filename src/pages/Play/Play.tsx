@@ -1,5 +1,5 @@
 import React, {useMemo} from 'react';
-import { getBlob, getDownloadURL, ref } from 'firebase/storage';
+import { getDownloadURL, ref } from 'firebase/storage';
 import { useParams } from 'react-router';
 import {
     IonButton,
@@ -7,40 +7,36 @@ import {
     IonCol,
     IonGrid,
     IonIcon,
-    IonItem,
-    IonLabel,
     IonRow,
     IonText,
 } from '@ionic/react';
 import {
-    ear,
     pause,
     play,
     stop,
     recording,
-    volumeHigh,
+    star,
+    starOutline,
 } from 'ionicons/icons';
-import { Media, MediaObject } from '@awesome-cordova-plugins/media';
 import { useEffect, useState } from 'react';
-import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
+import { Filesystem, Directory } from '@capacitor/filesystem';
 import {
   VoiceRecorder,
-  VoiceRecorderPlugin,
   RecordingData,
-  GenericResponse,
-  CurrentRecordingStatus,
 } from 'capacitor-voice-recorder';
 
-import { words, storage } from '../../api/handler';
+import { words, storage, getUserFavouriteSentenceIds, setUser, getUser } from '../../api/handler';
 import AppContainer from '../../components/AppContainer/AppContainer';
 import './Play.css';
+import {useAuth} from '../../hooks/useAuth';
 
 const Play: React.FC = () => {
     const { id } = useParams<{ id: string; }>();
+    const { user } = useAuth()
     const [ wrds, setWords ] = useState<Array<any>>([])
+    const [favouriteIds, setFavouriteIds] = useState<Array<any>>([])
     const [ word, setWord ] = useState<any>(null)
     const [ playing, setPlaying ] = useState<boolean>(false)
-    const [ toPlay, setToPlay ] = useState<string | null>(null)
     const [records, setRecords] = useState<any[]>([])
     const [isRecording, setIsRecording] = useState<boolean>(false)
     const [isPlayingRecord, setIsPlayingRecord] = useState<boolean>(false)
@@ -67,20 +63,19 @@ const Play: React.FC = () => {
 
         return records.includes(fileName)
     }, [records, fileName])
-    console.log({ hasRecord });
+
+    const addedToFavourite = useMemo(() => favouriteIds.includes(id), [id, favouriteIds])
 
     const loadFiles = async () => {
         const { files } = await Filesystem.readdir({
             path: '',
             directory: Directory.Data,
         })
-        console.log({ files });
         setRecords(files)
     }
 
     const startRecording = async () => {
         await VoiceRecorder.startRecording();
-        console.log('Starting');
         setIsRecording(true)
     }
 
@@ -105,7 +100,6 @@ const Play: React.FC = () => {
             path: fileName,
             directory: Directory.Data,
         });
-        console.log('Play');
         const mimeType = 'audio/wav';
         const base64Sound = audioFile.data;
 
@@ -118,9 +112,38 @@ const Play: React.FC = () => {
         })
     }
 
+    const addToFavourite = async () => {
+        const firebaseUser = await getUser(user?.uid)
+        if (firebaseUser) {
+            const updatingFavouriteIds = [...favouriteIds, id]
+            const updatingUser = {
+                ...firebaseUser,
+                favouriteIds: updatingFavouriteIds,
+            }
+            await setUser(user?.uid, updatingUser)
+            setFavouriteIds(updatingFavouriteIds)
+        }
+    }
+
+    const removeFromFavourite = async () => {
+        const firebaseUser = await getUser(user?.uid)
+        if (firebaseUser) {
+            const updatingFavouriteIds = favouriteIds.filter((favId: string) => favId !== id)
+            const updatingUser = {
+                ...firebaseUser,
+                favouriteIds: updatingFavouriteIds,
+            }
+            await setUser(user?.uid, updatingUser)
+            setFavouriteIds(updatingFavouriteIds)
+        }
+    }
+
     useEffect(() => {
         loadFiles()
         VoiceRecorder.requestAudioRecordingPermission()
+        getUserFavouriteSentenceIds(user?.uid).then(res => {
+            setFavouriteIds(res)
+        })
     }, [])
 
     useEffect(() => {
@@ -128,7 +151,7 @@ const Play: React.FC = () => {
         setWord(words.find(wd => wd.id == id) || {})
     }, [words, id])
 
-    const playAudio = async (filePath: string, playing: string) => {
+    const playAudio = async (filePath: string) => {
         // const file = Media.create(filePath)
         // console.log({ filePath });
         const audioDataRef = ref(storage, `${filePath}`)
@@ -233,7 +256,7 @@ const Play: React.FC = () => {
 
                             {word.dharugAudioUrl && (
                                 <IonButton
-                                    onClick={playing ? () => {} : () => playAudio(word.dharugAudioUrl, '2')}
+                                    onClick={playing ? () => {} : () => playAudio(word.dharugAudioUrl)}
                                     fill='clear'
                                     slot='end'
                                     className='orange-btn'
@@ -243,6 +266,55 @@ const Play: React.FC = () => {
                                 </IonButton>
                             )}
                         </div>
+
+                        <IonGrid className="favourite-container">
+                            <IonRow className="item">
+                                <IonText class='normal'>
+                                    <h2>Favourite</h2>
+                                </IonText>
+                            </IonRow>
+
+                            <IonRow className="item">
+                                <IonCol
+                                    size="10"
+                                    style={{
+                                        paddingInlineStart: 'unset',
+                                        paddingInlineEnd: 'unset',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        wordBreak: 'break-word',
+                                    }}
+                                >
+                                    <IonText class='normal'>
+                                        {addedToFavourite
+                                            ? 'Added to favourite'
+                                            : 'Click the star to add to your favourite list'
+                                        }
+                                    </IonText>
+                                </IonCol>
+
+                                <IonCol size="2">
+                                    <IonButtons style={{ justifyContent: 'space-between' }}>
+                                        <IonButton
+                                            class='normal'
+                                            fill="clear"
+                                            shape="round"
+                                            style={{
+                                                width: 48,
+                                                height: 48,
+                                            }}
+                                            onClick={addedToFavourite ? removeFromFavourite : addToFavourite}
+                                        >
+                                            <IonIcon
+                                                icon={addedToFavourite ? star : starOutline}
+                                                size="large"
+                                                style={{ color: '#ffd602' }}
+                                            />
+                                        </IonButton>
+                                    </IonButtons>
+                                </IonCol>
+                            </IonRow>
+                        </IonGrid>
 
                         <IonGrid className="record-container">
                             <IonRow className="item">
@@ -266,7 +338,6 @@ const Play: React.FC = () => {
                                         {hasRecord
                                             ? fileName
                                             : 'There is no record yet'
-                    
                                         }
                                     </IonText>
                                 </IonCol>

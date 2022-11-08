@@ -160,19 +160,17 @@ export const getUser = async (userId) => {
 }
 
 export const setUser = async (userId, payload) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            const updatingUser = {
-                ...payload,
-                uid: userId,
-            }
-            await setDoc(doc(db, 'users', userId), updatingUser);
-            resolve(updatingUser);
+    try {
+        const updatingUser = {
+            ...payload,
+            uid: userId,
         }
-        catch(err) {
-            reject(err)
-        }
-    })
+        await setDoc(doc(db, 'users', userId), updatingUser);
+        return updatingUser
+    } catch(err) {
+        console.error({ setUser: err });
+        throw err
+    }
 }
 
 export const addWord  = async (payload) => {
@@ -371,7 +369,7 @@ export const getUserFavouriteSentenceIds = async (userId) => {
     try {
         const docRef = doc(db, 'users', userId);
         const docSnap = await getDoc(docRef);
-        const { favouriteIds } = docSnap.data()
+        const { favouriteIds = [] } = docSnap.data()
         return favouriteIds;
     } catch(err) {
         console.error({ getUserFavouriteSentenceIds: err });
@@ -381,7 +379,7 @@ export const getUserFavouriteSentenceIds = async (userId) => {
 
 export const getUserFavouriteSentences = async (userId) => {
     try {
-        const [words, favouriteIds = []] = await Promise.all([
+        const [words, favouriteIds] = await Promise.all([
             getWords(),
             getUserFavouriteSentenceIds(userId),
         ])

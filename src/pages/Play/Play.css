@@ -46,7 +46,8 @@ div.item p {
     justify-content: center;
 }
 
-.record-container {
+.record-container,
+.favourite-container {
     padding: .5rem 1rem;
 }
 
