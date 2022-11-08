@@ -90,7 +90,10 @@ export const getWords = async () => {
         try {
             const docRef = collection(db, "wordList");
             const docSnap = await getDocs(docRef);
-            words = docSnap.docs.map(doc => doc.data());
+            words = docSnap.docs.map(doc => ({
+                ...doc.data(),
+                id: doc.id,
+            }));
             resolve(words);
         }
         catch(err) {
@@ -360,6 +363,36 @@ export const deleteUserConversations = async (userId, conversationIds) => {
         await Promise.all(conversationIds.map(id => deleteUserConversation(userId, id)))
     } catch (err) {
         console.error({ deleteUserConversations: err });
+        throw err
+    }
+}
+
+export const getUserFavouriteSentenceIds = async (userId) => {
+    try {
+        const docRef = doc(db, 'users', userId);
+        const docSnap = await getDoc(docRef);
+        const { favouriteIds } = docSnap.data()
+        return favouriteIds;
+    } catch(err) {
+        console.error({ getUserFavouriteSentenceIds: err });
+        throw err
+    }
+}
+
+export const getUserFavouriteSentences = async (userId) => {
+    try {
+        const [words, favouriteIds = []] = await Promise.all([
+            getWords(),
+            getUserFavouriteSentenceIds(userId),
+        ])
+        const wordsMap = words.reduce((res, word) => ({
+            ...res,
+            [word.id]: word,
+        }), {})
+        const favouriteSentences = favouriteIds.map(id => wordsMap[id]).filter(Boolean)
+        return favouriteSentences
+    } catch(err) {
+        console.error({ getUserFavouriteSentences: err })
         throw err
     }
 }

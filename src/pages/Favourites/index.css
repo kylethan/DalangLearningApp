@@ -1,0 +1,34 @@
+.word-item {
+    --background: #FFFFFF;
+    --inner-padding-bottom: .5rem;
+    --inner-padding-top: .5rem;
+    --inner-border-width: 0 0 1px 0;
+    --ion-item-color: black;
+}
+
+.green-btn {
+    --background:linear-gradient(to bottom right,#0BB1D3, darkorchid);;
+    --border-radius: 50% !important;
+    width: 40px; height: 40px;
+}
+
+.green-btn button {
+    --box-shadow: none;
+}
+
+.ion-list.list-inset {
+    padding: 0;
+    margin: 0;
+    margin-top: 16px;
+}
+
+.new-conversation-input {
+    --border-radius: 10px;
+    --border-width: 1px;
+}
+
+.new-conversation-btn {
+    --padding-start: 0.9em;
+    --padding-end: 0.9em;
+    --margin-inline: 0;
+}
