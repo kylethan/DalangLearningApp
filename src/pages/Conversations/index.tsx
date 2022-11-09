@@ -35,6 +35,7 @@ const Conversations: React.FC = () => {
     const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
     const [selectedConversation, setSelectedConversation] = useState<any>(null)
     const [updatingConversationName, setUpdatingConversationName] = useState<string>('')
+    
 
     useEffect(() => {
         getUserConversations(user?.uid).then(res => {

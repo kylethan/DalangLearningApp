@@ -40,7 +40,7 @@ const Login: React.FC = () => {
                         width="150"
                         height="150"
                     />
-                    <IonTitle color='light' size='large'>Dalang Learning App</IonTitle>
+                    <h1 className='title'>Dalang Learning</h1>
                     <br/>
                     <StyledFirebaseAuth
                         uiConfig={uiConfig}

@@ -244,15 +244,30 @@ const Play: React.FC = () => {
                         <div className='item'>
                             <p>{word.english}</p>
 
-                            <IonButton color='light' fill='clear' >
-                                {/* <IonIcon icon={playing == '1' ? pause : play} /> */}
-                            </IonButton>
+                            {/* <IonButton color='light' fill='clear' >
+                                <IonIcon icon={playing == '1' ? pause : play} />
+                            </IonButton> */}
+
                         </div>
 
                         <div className='item'>
                             <p style={{ fontSize: 24, color: '#000' }}>
                                 { word.dharug }
                             </p>
+                            {
+                                <IonButton
+                                    
+                                    fill="clear"
+                                    shape="round"
+                                    
+                                    onClick={addedToFavourite ? removeFromFavourite : addToFavourite}>
+                                    <IonIcon
+                                        icon={addedToFavourite ? star : starOutline}
+                                        size="large"
+                                        style={{ color: '#ffd602' }}/>
+                                </IonButton>
+
+                            }
 
                             {word.dharugAudioUrl && (
                                 <IonButton
@@ -267,7 +282,7 @@ const Play: React.FC = () => {
                             )}
                         </div>
 
-                        <IonGrid className="favourite-container">
+                        {/* <IonGrid className="favourite-container">
                             <IonRow className="item">
                                 <IonText class='normal'>
                                     <h2>Favourite</h2>
@@ -314,7 +329,7 @@ const Play: React.FC = () => {
                                     </IonButtons>
                                 </IonCol>
                             </IonRow>
-                        </IonGrid>
+                        </IonGrid> */}
 
                         <IonGrid className="record-container">
                             <IonRow className="item">

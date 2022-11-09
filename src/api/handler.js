@@ -388,6 +388,7 @@ export const getUserFavouriteSentences = async (userId) => {
             [word.id]: word,
         }), {})
         const favouriteSentences = favouriteIds.map(id => wordsMap[id]).filter(Boolean)
+        
         return favouriteSentences
     } catch(err) {
         console.error({ getUserFavouriteSentences: err })

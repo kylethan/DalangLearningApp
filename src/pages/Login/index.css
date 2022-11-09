@@ -11,4 +11,13 @@
 ion-title.title-large {
     color: darkorchid;
     font-size: 36px;
+    text-align: center;
+  }
+
+  .title {
+    font-size: 36px;
+    text-align: center;
+    color: darkorchid;
+    font-style:inherit;
+
   }

@@ -12,9 +12,12 @@ import {
     IonLabel,
     IonList,
     IonModal,
+    IonRefresher,
+    IonRefresherContent,
     IonText,
     IonTitle,
     IonToolbar,
+    RefresherEventDetail,
 } from '@ionic/react'
 import {
     chevronForwardOutline,
@@ -95,7 +98,7 @@ const Favourites: React.FC = () => {
         await setUserConversations(user?.uid, updatingConversations)
         setConversations(updatingConversations)
     }
-
+    
     const createNewConversation = () => {
         const newConversation = {
             name: newConversationName,
@@ -110,6 +113,7 @@ const Favourites: React.FC = () => {
     }
 
     return (
+        
         <AppContainer searchFunction={filter}>
             <IonList style={{ padding: 0, margin: '-1rem ' }}>
                 {words.map(word => (
