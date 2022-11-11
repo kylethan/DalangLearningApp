@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import {
     IonButton,
     IonButtons,
@@ -30,18 +30,12 @@ import './index.css';
 
 const Conversations: React.FC = () => {
     const history = useHistory()
+    const location = useLocation()
     const { user } = useAuth()
     const [conversations, setConversations] = useState<any[]>([])
     const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
     const [selectedConversation, setSelectedConversation] = useState<any>(null)
     const [updatingConversationName, setUpdatingConversationName] = useState<string>('')
-    
-
-    useEffect(() => {
-        getUserConversations(user?.uid).then(res => {
-            setConversations(res);
-        })
-    }, [])
 
     useEffect(() => {
         if (user) {
@@ -49,7 +43,7 @@ const Conversations: React.FC = () => {
                 setConversations(res);
             })
         }
-    }, [user])
+    }, [user, location.key])
 
     const renameConversation = async () => {
         if (selectedConversation) {
@@ -88,7 +82,6 @@ const Conversations: React.FC = () => {
                                 fill="clear"
                                 slot="end"
                                 className="green-btn"
-                                
                             >
                                 <IonIcon color="light" icon={chevronForwardOutline} />
                             </IonButton>
