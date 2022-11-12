@@ -260,6 +260,7 @@ const Play: React.FC = () => {
                                     fill="clear"
                                     shape="round"
                                     
+                                    
                                     onClick={addedToFavourite ? removeFromFavourite : addToFavourite}>
                                     <IonIcon
                                         icon={addedToFavourite ? star : starOutline}

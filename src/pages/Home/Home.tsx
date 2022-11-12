@@ -67,26 +67,32 @@ const Home: React.FC = () => {
             {/* { <IonButton onClick={() => setUpDb()}> 
                 setup
             </IonButton> } */}
-            <IonRow>
-                {categories.map((category) => (
-                    <IonCol size="6" className='custom' key={category.name}>
-                        <IonRouterLink routerLink={`/categories/${category.name}`}>
-                            <IonRow className="category-icon-container">
-                                <img
-                                    className="category-icon"
-                                    src={category.imageUrl}
-                                    alt="category-icon"
-                                    width="32"
-                                    height="32"
-                                />
-                            </IonRow>
+            {/* <IonRow>
+                {words.map((wordList) => (
+                    <IonCol size="6" className='custom' key={wordList.category}>
+                        <IonRouterLink routerLink={`/categories/${wordList.category}`}>
+                            
 
                             <IonText>
-                                {category.name}
+                                {wordList.category}
                             </IonText>
                         </IonRouterLink>
                     </IonCol>
                 ))}
+            </IonRow> */}
+            <IonRow>
+                {
+                    [...new Set(wrds.map(word => word.category))].map((category, key) => (
+                        <IonCol size="6" className='custom' key={key}>
+                            <IonRouterLink routerLink={`/categories/${category}`}>
+                                
+                                <IonText>
+                                    {category}
+                                </IonText>
+                            </IonRouterLink>
+                        </IonCol>
+                    ))
+                }
             </IonRow>
             {
                 // showLoading &&
