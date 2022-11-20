@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "dalanglearning",
     "public": "build",
     "ignore": [
       "firebase.json",

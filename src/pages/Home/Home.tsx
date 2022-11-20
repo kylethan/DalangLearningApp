@@ -6,6 +6,7 @@ import { earth } from 'ionicons/icons';
 import { words, getWords, getCategories } from '../../api/handler';
 
 import { setUpDb } from '../../api/handler';
+import Category from '../Category/Category';
 
 const Home: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(false)
@@ -79,15 +80,15 @@ const Home: React.FC = () => {
                         </IonRouterLink>
                     </IonCol>
                 ))}
-            </IonRow> */}
+            </IonRow> */} 
             <IonRow>
                 {
-                    [...new Set(wrds.map(word => word.category))].map((category, key) => (
+                    [...new Set(wrds.map(word => word.category))].map((category, key) => ( 
                         <IonCol size="6" className='custom' key={key}>
                             <IonRouterLink routerLink={`/categories/${category}`}>
                                 
                                 <IonText>
-                                    {category}
+                                    <h2>{category}</h2>
                                 </IonText>
                             </IonRouterLink>
                         </IonCol>
